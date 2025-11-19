@@ -1,0 +1,146 @@
+[
+    {
+        "hostname": "DA_DCT",
+        "nome": "DA-DCT",
+        "ip": "10.26.22.33",
+        "latitude": -29.692458710122253, 
+        "longitude": -53.84303989305943,
+        "foto": "/assets/fotos/DCT.png"
+    },
+    {
+        "hostname": "3_DE",
+        "nome": "3 DE",
+        "ip": "10.147.0.84",
+        "latitude": -29.689534440684707,
+        "longitude": -53.820913703914705,
+        "foto": "/assets/fotos/3DE.png"
+    },
+    {
+        "hostname": "6_BDA",
+        "nome": "6 BDA",
+        "ip": "10.26.3.241",
+        "latitude": -29.68934565439718,
+        "longitude": -53.82149763145366,
+        "foto": "/assets/fotos/6bdaA.png"
+    },
+    {
+        "hostname": "B_ADM_SM",
+        "nome": "B ADM SM",
+        "ip": "10.147.0.68",
+        "latitude": -29.689193588283768,
+        "longitude": -53.82155454081665,
+        "foto": "/assets/fotos/BADMGUSM.png"
+    },
+    {
+        "hostname": "PQRMNT3",
+        "nome": "PQRMNT3",
+        "ip": "10.147.0.111",
+        "latitude": -29.688826219347323,
+        "longitude": -53.84204503850795,
+        "foto": "/assets/fotos/PQRMNT3.png"
+    },
+    {
+        "hostname": "CMSM",
+        "nome": "CMSM",
+        "ip": "10.26.3.26",
+        "latitude": -29.683538056568374,
+        "longitude": -53.8434354485115,
+        "foto": "/assets/fotos/CMSM.png"
+    },
+    {
+        "hostname": "HGE_SM",
+        "nome": "HGE Santa Maria",
+        "ip": "10.147.0.104",
+        "latitude": -29.68517428587001, 
+        "longitude": -53.826978385474234,
+        "foto": "/assets/fotos/HGESM.png"
+    },
+    {
+        "hostname": "29BIB",
+        "nome": "29 BIB",
+        "ip": "10.147.0.68",
+        "latitude": -29.72264551679353, 
+        "longitude": -53.8487752692955,
+        "foto": "/assets/fotos/29BIB.png"
+    },
+    {
+        "hostname": "1_RCC",
+        "nome": "1 RCC",
+        "ip": "10.147.0.23",
+        "latitude": -29.714728130429272, 
+        "longitude": -53.85010505856303,
+        "foto": "/assets/fotos/1RCC.png"
+    },
+    {
+        "hostname": "4_BLOG",
+        "nome": "4 BLOG",
+        "ip": "10.147.0.47",
+        "latitude": -29.719769357542013, 
+        "longitude": -53.849842405154966,
+        "foto": "/assets/fotos/4BLOG.png"
+    },
+    {
+        "hostname": "6_ESQD",
+        "nome": "6 ESQD",
+        "ip": "10.147.0.54",
+        "latitude": -29.71187651700341, 
+        "longitude": -53.845366256674765,
+        "foto": "/assets/fotos/6esqdcmec.png"
+    },
+    {
+        "hostname": "6_BIA_AAAE",
+        "nome": "6 BIA AAAE",
+        "ip": "10.147.0.51",
+        "latitude": -29.71329656660639,
+        "longitude": -53.84608198721174,
+        "foto": "/assets/fotos/6BIAAAEAP.png"
+    },
+    {
+        "hostname": "3_GAC_AP",
+        "nome": "3 GAC AP",
+        "ip": "10.147.0.43",
+        "latitude": -29.68676026819289,
+        "longitude": -53.82673641343095,
+        "foto": "/assets/fotos/3GAPCAP.png"
+    },
+    {
+        "hostname": "3_CIA_COM",
+        "nome": "3 CIA COM",
+        "ip": "10.147.0.34",
+        "latitude": -29.670726051156304, 
+        "longitude": -53.81309557007396,
+        "foto": "/assets/fotos/3CIACOM.png"
+    },
+    {
+        "hostname": "CA_SUL",
+        "nome": "CA SUL",
+        "ip": "10.147.0.71",
+        "latitude": -29.736258925494017,
+        "longitude": -53.84434963427527,
+        "foto": "/assets/fotos/CASUL.png"
+    },
+    {
+        "hostname": "CISM",
+        "nome": "CISM",
+        "ip": "10.147.0.76",
+        "latitude": -29.737275989477528,
+        "longitude": -53.84199139704779,
+        "foto": "/assets/fotos/CISM.png"
+    },
+    {
+        "hostname": "CI_BLD",
+        "nome": "CI BLD",
+        "ip": "10.147.0.73",
+        "latitude": -29.71680943747083, 
+        "longitude": -53.84979510755229,
+        "foto": "/assets/fotos/CIBLD.png"
+    },
+    {
+        "hostname": "DSSM",
+        "nome": "DSSM",
+        "ip": "10.147.0.99",
+        "latitude": -29.677455509835436, 
+        "longitude": -53.81171032908659,
+        "foto": "/assets/fotos/DSSM.png"
+    }
+]

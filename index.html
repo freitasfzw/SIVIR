@@ -2,50 +2,94 @@
 <html lang="pt-br">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NagDash - Protótipo</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NagDash</title>
+  <link rel="shortcut icon" href="/public/nagios-logo.png" type="image/x-icon">
 
-  <!-- Leaflet CSS -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
 
-  <style>
-    body {
-      margin: 0;
-      background: #111;
-    }
-
-    #map {
-      width: 100vw;
-      height: 100vh;
-    }
-  </style>
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 
 <body>
 
-  <div id="map"></div>
+  <noscript>
+    <div
+      style="position:fixed;top:0;left:0;right:0;background:#ffdddd;color:#700;padding:8px;text-align:center;z-index:9999;">
+      Este app requer JavaScript para funcionar corretamente. Habilite o JavaScript no navegador.
+    </div>
+  </noscript>
 
-  <!-- Leaflet JS -->
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
-  </script>
+  <!-- Sidebar -->
+  <div id="sidebar" aria-hidden="true">
+    <div id="sidebar-header">
+      <h1>NagDash</h1>
+      <span class="subtitle">Painel de Monitoramento</span>
+      <button id="closeSidebar" type="button" aria-label="Fechar painel">×</button>
+    </div>
 
+    <div class="menu-item" role="button" tabindex="0">
+      <i class="icon" data-icon="server"></i>
+      <div>
+        <div class="menu-title">Adicionar Quartel</div>
+        <div class="menu-subtitle">Gerenciar hosts monitorados</div>
+      </div>
+    </div>
+
+    <div class="menu-item" role="button" tabindex="0">
+      <i class="icon" data-icon="network"></i>
+      <div>
+        <div class="menu-title">Adicionar Enlaces</div>
+        <div class="menu-subtitle">Status dos serviços Nagios</div>
+      </div>
+    </div>
+
+    <div class="menu-item" role="button" tabindex="0">
+      <i class="icon" data-icon="activity"></i>
+      <div>
+        <div class="menu-title">Monitoramento</div>
+        <div class="menu-subtitle">Visão geral da rede</div>
+      </div>
+    </div>
+
+    <div class="menu-item" role="button" tabindex="0">
+      <i class="icon" data-icon="map"></i>
+      <div>
+        <div class="menu-title">Filtros</div>
+        <div class="menu-subtitle">Camadas e visualização</div>
+      </div>
+    </div>
+
+    <div id="sidebar-footer">
+      <button id="exportButton" class="footer-btn" type="button">
+        <i data-icon="download"></i> Exportar Dados
+      </button>
+
+      <button id="logoutButton" class="footer-btn logout" type="button">
+        Sair
+      </button>
+    </div>
+  </div>
+
+  <!-- Botão para abrir sidebar -->
+  <button id="toggleSidebar" type="button" aria-label="Abrir painel" title="Configurações">☰</button>
+
+  <div id="map" role="region" aria-label="Mapa NagDash"></div>
+
+  <!-- Leaflet -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+  <!-- Mapa / App -->
+  <script src="js/map.js" defer></script>
+
+  <!-- Lucide icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
   <script>
-    // Coordenadas iniciais (exemplo: Alegrete-RS)
-    const inicial = [-29.7833, -55.7919];
-
-    // Cria o mapa
-    const mapa = L.map('map').setView(inicial, 13);
-
-    // Camada de mapa (OpenStreetMap)
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 19,
-      attribution: '© OpenStreetMap'
-    }).addTo(mapa);
-
-    // Exemplo de marcador — depois será trocado pelos dados do Nagios
-    const marcador = L.marker(inicial).addTo(mapa);
-    marcador.bindPopup("<b>NagDash inicial!</b><br>Aqui começa a brincadeira.");
+    // desenha os ícones SVG da sidebar
+    lucide.createIcons();
   </script>
 </body>
 
