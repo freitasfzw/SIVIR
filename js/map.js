@@ -4,7 +4,7 @@ const mapa = L.map("map", {
   zoomControl: false,
   maxZoom: 20,
   minZoom: 4
-}).setView(inicial, 11);
+}).setView(inicial, 13.5);
 
 // Tile escuro
 L.tileLayer("https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png", {
@@ -20,7 +20,7 @@ const clusterGroup = L.markerClusterGroup({
   zoomToBoundsOnClick: false,
   spiderfyOnClick: true,
   spiderfyDistanceMultiplier: 2.2,
-  maxClusterRadius: 60
+  maxClusterRadius: 5
 });
 mapa.addLayer(clusterGroup);
 

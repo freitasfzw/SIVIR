@@ -31,18 +31,58 @@ function nagiosAuth() {
   return { "Authorization": `Basic ${token}` };
 }
 
-// ====== Puxa lista de hosts ======
+// ============================================================
+//  HOSTGROUPS — todas as cidades/regiões que deseja consultar
+// ============================================================
+
+const HOSTGROUPS = [
+  "santa_maria",
+  "itaara",
+  "alegrete",
+  "santiago",
+  "sao_borja",
+  "sao_gabriel",
+  "uruguaiana",
+  "cruz_alta",
+  "cachoeira_do_sul",
+  "itaqui",
+  "rosario_do_sul"
+];
+
+// ============================================================
+//  Busca lista de hostnames em TODOS os hostgroups acima
+// ============================================================
+
 async function getHostList() {
-  const url = `http://${NAGIOS_HOST}/nagios/cgi-bin/statusjson.cgi?query=hostlist&hostgroup=santa_maria`;
+  const result = new Set();
 
-  const res = await fetch(url, { headers: nagiosAuth() });
-  if (!res.ok) throw new Error(`Erro hostlist: ${res.status}`);
+  for (const g of HOSTGROUPS) {
+    const url = `http://${NAGIOS_HOST}/nagios/cgi-bin/statusjson.cgi?query=hostlist&hostgroup=${g}`;
 
-  const json = await res.json();
-  return Object.keys(json.data.hostlist || {});
+    try {
+      const res = await fetch(url, { headers: nagiosAuth() });
+      if (!res.ok) continue;
+
+      const json = await res.json();
+      const hosts = Object.keys(json.data.hostlist || {});
+
+      hosts.forEach(h => result.add(h));
+
+      console.log(`Hostgroup ${g}:`, hosts.length, "hosts carregados");
+
+    } catch (err) {
+      console.warn(`Falha ao ler hostgroup ${g}:`, err.message);
+    }
+  }
+
+  console.log("Total hosts combinados:", result.size);
+  return [...result];
 }
 
-// ====== Puxa detalhes de um host ======
+// ============================================================
+//  Puxa detalhes de um host
+// ============================================================
+
 async function getHostDetails(hostname) {
   const url = `http://${NAGIOS_HOST}/nagios/cgi-bin/statusjson.cgi?query=host&hostname=${hostname}`;
 
@@ -53,7 +93,10 @@ async function getHostDetails(hostname) {
   return json.data.host || null;
 }
 
-// ====== Endpoint principal ======
+// ============================================================
+//  Endpoint principal
+// ============================================================
+
 app.get("/api/om-status", async (req, res) => {
   try {
     const locations = await readLocations();
@@ -76,19 +119,17 @@ app.get("/api/om-status", async (req, res) => {
         };
       }
 
-      // ===== CORREÇÃO: usa last_hard_state, que é o estado REAL do Nagios =====
       const code = detail.last_hard_state ?? detail.status;
 
       const STATUS_MAP = {
         0: "UP",
         1: "DOWN",
-        2: "UNREACHABLE",  // ajuste se quiser tratar 2 como UP
+        2: "UNREACHABLE",
         3: "UNKNOWN"
       };
 
       const statusText = STATUS_MAP[code] || "UNKNOWN";
 
-      // Conversão da data
       const lastCheck = detail.last_check
         ? new Date(detail.last_check).toLocaleString("pt-BR")
         : null;

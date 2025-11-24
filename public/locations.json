@@ -1,163 +1,462 @@
 [
-    {
-        "hostname": "DA_DCT",
-        "nome": "DA-DCT",
-        "ip": "10.26.22.33",
-        "latitude": -29.692458710122253, 
-        "longitude": -53.84303989305943,
-        "foto": "/assets/fotos/DCT.png"
-    },
-    {
-        "hostname": "3_DE",
-        "nome": "3 DE",
-        "ip": "10.147.0.84",
-        "latitude": -29.689534440684707,
-        "longitude": -53.820913703914705,
-        "foto": "/assets/fotos/3DE.png"
-    },
-    {
-        "hostname": "6_BDA",
-        "nome": "6 BDA",
-        "ip": "10.26.3.241",
-        "latitude": -29.68934565439718,
-        "longitude": -53.82149763145366,
-        "foto": "/assets/fotos/6bdaA.png"
-    },
-    {
-        "hostname": "B_ADM_SM",
-        "nome": "B ADM SM",
-        "ip": "10.147.0.68",
-        "latitude": -29.689193588283768,
-        "longitude": -53.82155454081665,
-        "foto": "/assets/fotos/BADMGUSM.png"
-    },
-    {
-        "hostname": "PQRMNT3",
-        "nome": "PQRMNT3",
-        "ip": "10.147.0.111",
-        "latitude": -29.688826219347323,
-        "longitude": -53.84204503850795,
-        "foto": "/assets/fotos/PQRMNT3.png"
-    },
-    {
-        "hostname": "CMSM",
-        "nome": "CMSM",
-        "ip": "10.26.3.26",
-        "latitude": -29.683538056568374,
-        "longitude": -53.8434354485115,
-        "foto": "/assets/fotos/CMSM.png"
-    },
-    {
-        "hostname": "HGE_SM",
-        "nome": "HGE Santa Maria",
-        "ip": "10.147.0.104",
-        "latitude": -29.68517428587001, 
-        "longitude": -53.826978385474234,
-        "foto": "/assets/fotos/HGESM.png"
-    },
-    {
-        "hostname": "29BIB",
-        "nome": "29 BIB",
-        "ip": "10.147.0.68",
-        "latitude": -29.72264551679353, 
-        "longitude": -53.8487752692955,
-        "foto": "/assets/fotos/29BIB.png"
-    },
-    {
-        "hostname": "1_RCC",
-        "nome": "1 RCC",
-        "ip": "10.147.0.23",
-        "latitude": -29.714728130429272, 
-        "longitude": -53.85010505856303,
-        "foto": "/assets/fotos/1RCC.png"
-    },
-    {
-        "hostname": "4_BLOG",
-        "nome": "4 BLOG",
-        "ip": "10.147.0.47",
-        "latitude": -29.719769357542013, 
-        "longitude": -53.849842405154966,
-        "foto": "/assets/fotos/4BLOG.png"
-    },
-    {
-        "hostname": "6_ESQD",
-        "nome": "6 ESQD",
-        "ip": "10.147.0.54",
-        "latitude": -29.71187651700341, 
-        "longitude": -53.845366256674765,
-        "foto": "/assets/fotos/6esqdcmec.png"
-    },
-    {
-        "hostname": "6_BIA_AAAE",
-        "nome": "6 BIA AAAE",
-        "ip": "10.147.0.51",
-        "latitude": -29.71329656660639,
-        "longitude": -53.84608198721174,
-        "foto": "/assets/fotos/6BIAAAEAP.png"
-    },
-    {
-        "hostname": "3_GAC_AP",
-        "nome": "3 GAC AP",
-        "ip": "10.147.0.43",
-        "latitude": -29.68676026819289,
-        "longitude": -53.82673641343095,
-        "foto": "/assets/fotos/3GAPCAP.png"
-    },
-    {
-        "hostname": "3_CIA_COM",
-        "nome": "3 CIA COM",
-        "ip": "10.147.0.34",
-        "latitude": -29.670726051156304, 
-        "longitude": -53.81309557007396,
-        "foto": "/assets/fotos/3CIACOM.png"
-    },
-    {
-        "hostname": "CA_SUL",
-        "nome": "CA SUL",
-        "ip": "10.147.0.71",
-        "latitude": -29.736258925494017,
-        "longitude": -53.84434963427527,
-        "foto": "/assets/fotos/CASUL.png"
-    },
-    {
-        "hostname": "CISM",
-        "nome": "CISM",
-        "ip": "10.147.0.76",
-        "latitude": -29.737275989477528,
-        "longitude": -53.84199139704779,
-        "foto": "/assets/fotos/CISM.png"
-    },
-    {
-        "hostname": "CI_BLD",
-        "nome": "CI BLD",
-        "ip": "10.147.0.73",
-        "latitude": -29.71680943747083, 
-        "longitude": -53.84979510755229,
-        "foto": "/assets/fotos/CIBLD.png"
-    },
-    {
-        "hostname": "DSSM",
-        "nome": "DSSM",
-        "ip": "10.147.0.99",
-        "latitude": -29.677455509835436, 
-        "longitude": -53.81171032908659,
-        "foto": "/assets/fotos/DSSM.png"
-    },
+  {
+    "hostname": "DA_DCT",
+    "nome": "DA-DCT",
+    "ip": "10.26.22.33",
+    "hostgroup": "santa_maria",
+    "latitude": -29.692458710122253,
+    "longitude": -53.84303989305943,
+    "foto": "/assets/fotos/DCT.png"
+  },
+  {
+    "hostname": "3_DE",
+    "nome": "3 DE",
+    "ip": "10.147.0.84",
+        "hostgroup": "santa_maria",
+    "latitude": -29.689534440684707,
+    "longitude": -53.820913703914705,
+    "foto": "/assets/fotos/3DE.png"
+  },
+  {
+    "hostname": "6_BDA",
+    "nome": "6 BDA",
+    "ip": "10.26.3.241",
+        "hostgroup": "santa_maria",
+    "latitude": -29.68934565439718,
+    "longitude": -53.82149763145366,
+    "foto": "/assets/fotos/6bdaA.png"
+  },
+  {
+    "hostname": "B_ADM_SM",
+    "nome": "B ADM SM",
+    "ip": "10.147.0.68",
+        "hostgroup": "santa_maria",
+    "latitude": -29.689193588283768,
+    "longitude": -53.82155454081665,
+    "foto": "/assets/fotos/BADMGUSM.png"
+  },
+  {
+    "hostname": "PQRMNT3",
+    "nome": "PQRMNT3",
+    "ip": "10.147.0.111",
+        "hostgroup": "santa_maria",
+    "latitude": -29.688826219347323,
+    "longitude": -53.84204503850795,
+    "foto": "/assets/fotos/PQRMNT3.png"
+  },
+  {
+    "hostname": "CMSM",
+    "nome": "CMSM",
+    "ip": "10.26.3.26",
+        "hostgroup": "santa_maria",
+    "latitude": -29.683538056568374,
+    "longitude": -53.8434354485115,
+    "foto": "/assets/fotos/CMSM.png"
+  },
+  {
+    "hostname": "HGE_SM",
+    "nome": "HGE Santa Maria",
+    "ip": "10.147.0.104",
+        "hostgroup": "santa_maria",
+    "latitude": -29.68517428587001,
+    "longitude": -53.826978385474234,
+    "foto": "/assets/fotos/HGESM.png"
+  },
+  {
+    "hostname": "29BIB",
+    "nome": "29 BIB",
+    "ip": "10.147.0.68",
+        "hostgroup": "santa_maria",
+    "latitude": -29.72264551679353,
+    "longitude": -53.8487752692955,
+    "foto": "/assets/fotos/29BIB.png"
+  },
+  {
+    "hostname": "1_RCC",
+    "nome": "1 RCC",
+    "ip": "10.147.0.23",
+        "hostgroup": "santa_maria",
+    "latitude": -29.714728130429272,
+    "longitude": -53.85010505856303,
+    "foto": "/assets/fotos/1RCC.png"
+  },
+  {
+    "hostname": "4_BLOG",
+    "nome": "4 BLOG",
+    "ip": "10.147.0.47",
+        "hostgroup": "santa_maria",
+    "latitude": -29.719769357542013,
+    "longitude": -53.849842405154966,
+    "foto": "/assets/fotos/4BLOG.png"
+  },
+  {
+    "hostname": "6_ESQD",
+    "nome": "6 ESQD",
+    "ip": "10.147.0.54",
+        "hostgroup": "santa_maria",
+    "latitude": -29.71187651700341,
+    "longitude": -53.845366256674765,
+    "foto": "/assets/fotos/6esqdcmec.png"
+  },
+  {
+    "hostname": "6_BIA_AAAE",
+    "nome": "6 BIA AAAE",
+    "ip": "10.147.0.51",
+        "hostgroup": "santa_maria",
+    "latitude": -29.71329656660639,
+    "longitude": -53.84608198721174,
+    "foto": "/assets/fotos/6BIAAAEAP.png"
+  },
+  {
+    "hostname": "3_GAC_AP",
+    "nome": "3 GAC AP",
+    "ip": "10.147.0.43",
+        "hostgroup": "santa_maria",
+    "latitude": -29.68676026819289,
+    "longitude": -53.82673641343095,
+    "foto": "/assets/fotos/3GAPCAP.png"
+  },
+  {
+    "hostname": "3_CIA_COM",
+    "nome": "3 CIA COM",
+    "ip": "10.147.0.34",
+        "hostgroup": "santa_maria",
+    "latitude": -29.670726051156304,
+    "longitude": -53.81309557007396,
+    "foto": "/assets/fotos/3CIACOM.png"
+  },
+  {
+    "hostname": "CA_SUL",
+    "nome": "CA SUL",
+    "ip": "10.147.0.71",
+        "hostgroup": "santa_maria",
+    "latitude": -29.736258925494017,
+    "longitude": -53.84434963427527,
+    "foto": "/assets/fotos/CASUL.png"
+  },
+  {
+    "hostname": "CISM",
+    "nome": "CISM",
+    "ip": "10.147.0.76",
+        "hostgroup": "santa_maria",
+    "latitude": -29.737275989477528,
+    "longitude": -53.84199139704779,
+    "foto": "/assets/fotos/CISM.png"
+  },
+  {
+    "hostname": "CI_BLD",
+    "nome": "CI BLD",
+    "ip": "10.147.0.73",
+        "hostgroup": "santa_maria",
+    "latitude": -29.71680943747083,
+    "longitude": -53.84979510755229,
+    "foto": "/assets/fotos/CIBLD.png"
+  },
+  {
+    "hostname": "DSSM",
+    "nome": "DSSM",
+    "hostgroup": "santa_maria",
+    "ip": "10.147.0.99",
+    "latitude": -29.677455509835436,
+    "longitude": -53.81171032908659,
+    "foto": "/assets/fotos/DSSM.png"
+  },
 
-    {
-        "hostname": "4_RCC",
-        "nome": "4 RCC",
-        "ip": "10.xxx.x.xxx",
-        "latitude": -30.25924881396888, 
-        "longitude": -54.89899395568386,
-        "foto": "/assets/fotos/default.jpg"
-    },
-    {
-        "hostname": "CI_BSB",
-        "nome": "CI BSB",
-        "ip": "10.xxx.x.xxx",
-        "latitude": -30.15460019630614,
-        "longitude": -55.05270731684865,
-        "foto": "/assets/fotos/default.jpg"
-    }
+  {
+    "hostname": "4_RCC",
+    "nome": "4 RCC",
+    "ip": "10.147.0.49",
+    "hostgroup": "rosario_do_sul",
+    "latitude": -30.25924881396888,
+    "longitude": -54.89899395568386,
+    "foto": "/assets/fotos/default.jpg"
+  },
+  {
+    "hostname": "CIBSB",
+    "nome": "CI BSB",
+    "ip": "10.147.0.74",
+    "hostgroup": "rosario_do_sul",
+    "latitude": -30.15460019630614,
+    "longitude": -55.05270731684865,
+    "foto": "/assets/fotos/default.jpg"
+  },
+
+  {
+    "hostname": "13_CIA_DAM",
+    "nome": "13 CIA DAM",
+    "ip": "10.147.0.10",
+    "hostgroup": "itaara",
+    "latitude": -29.562267621495206,
+    "longitude": -53.77702450914125,
+    "foto": "/assets/fotos/13ciadam.png"
+  },
+
+  {
+    "hostname": "10_BLOG",
+    "nome": "10 BLOG",
+    "ip": "10.147.0.4",
+    "hostgroup": "alegrete",
+    "latitude": -29.773963652546822,
+    "longitude": -55.80476036358297,
+    "foto": "/assets/fotos/default.jpg"
+  },
+  {
+    "hostname": "6_RCB",
+    "nome": "6 RCB",
+    "ip": "10.147.0.56",
+        "hostgroup": "alegrete",
+    "latitude": -29.77838864571427,
+    "longitude": -55.80570108121015,
+    "foto": "/assets/fotos/default.jpg"
+  },
+  {
+    "hostname": "2_CIA_ENG_CMB",
+    "nome": "2 CIA ENG CMB",
+    "ip": "10.147.0.31",
+    "hostgroup": "alegrete",
+    "latitude": -29.7809235244142,
+    "longitude": -55.784821221135786,
+    "foto": "/assets/fotos/default.jpg"
+  },
+  {
+    "hostname": "12_CIA_COM_MEC",
+    "nome": "12 CIA COM MEC",
+    "ip": "10.147.0.6",
+    "hostgroup": "alegrete",
+    "latitude": -29.803092446391386,
+    "longitude": -55.799137833753434,
+    "foto": "/assets/fotos/default.jpg"
+  },
+  {
+    "hostname": "12_BECMB",
+    "nome": "12 BECMB",
+    "ip": "10.147.0.7",
+    "hostgroup": "alegrete",
+    "latitude": -29.779963410884385,
+    "longitude": -55.78553978407106,
+    "foto": "/assets/fotos/default.jpg"
+  },
+  {
+    "hostname": "HGU_ALEGRETE",
+    "nome": "HGU Alegrete",
+    "ip": "10.147.0.105",
+    "hostgroup": "alegrete",
+    "latitude": -29.784178385374247,
+    "longitude": -55.78732996898383,
+    "foto": "/assets/fotos/default.jpg"
+  },
+
+  {
+    "hostname": "1_RCMEC",
+    "nome": "1 RCMEC",
+    "ip": "10.147.0.22",
+    "hostgroup": "itaqui",
+    "latitude": -29.153418434748527,
+    "longitude": -56.550555811059965,
+    "foto": "/assets/fotos/default.jpg"
+  },
+
+  {
+    "hostname": "13_GAC",
+    "nome": "13 GAC",
+    "ip": "10.147.0.116",
+    "hostgroup": "cachoeira_do_sul",
+    "latitude": -30.051502599903397,
+    "longitude": -52.897492396861985,
+    "foto": "/assets/fotos/default.jpg"
+  },
+  {
+    "hostname": "3_BEC",
+    "nome": "3° BEC",
+    "ip": "10.147.0.39",
+    "hostgroup": "cachoeira_do_sul",
+    "latitude": -30.052089573841048,
+    "longitude": -52.89815261393125,
+    "foto": "/assets/fotos/default.jpg"
+  },
+
+  {
+    "hostname": "29GAC",
+    "nome": "29 GAC",
+    "ip": "10.147.0.29",
+    "hostgroup": "cruz_alta",
+    "latitude": -28.64144867018259,
+    "longitude": -53.59464913355668,
+    "foto": "/assets/fotos/default.jpg"
+  },
+  {
+    "hostname": "EASA",
+    "nome": "EASA",
+    "ip": "10.147.0.100",
+    "hostgroup": "cruz_alta",
+    "latitude": -28.63439001772665,
+    "longitude": -53.614970085111686,
+    "foto": "/assets/fotos/default.jpg"
+  },
+  {
+    "hostname": "CMD_AD3",
+    "nome": "CMD AD/3",
+    "ip": "10.147.0.91",
+    "hostgroup": "cruz_alta",
+    "latitude": -28.645519724964736,
+    "longitude": -53.61148034544129,
+    "foto": "/assets/fotos/default.jpg"
+  },
+  {
+    "hostname": "BIA_CMD_AD3",
+    "nome": "BIA CMD AD/3",
+    "ip": "10.147.0.70",
+    "hostgroup": "cruz_alta",
+    "latitude": -28.639390140309423,
+    "longitude": -53.59414234761424,
+    "foto": "/assets/fotos/default.jpg"
+  },
+  {
+    "hostname": "P_MED_CZA",
+    "nome": "P MED Cruz Alta",
+    "ip": "10.147.0.115",
+    "hostgroup": "cruz_alta",
+    "latitude": -28.643479807744164,
+    "longitude": -53.599834487786275,
+    "foto": "/assets/fotos/default.jpg"
+  },
+
+  {
+    "hostname": "11_CIA_COM",
+    "nome": "11 CIA COM",
+    "ip": "10.147.0.5",
+    "hostgroup": "santiago",
+    "latitude": -29.19440097106517,
+    "longitude": -54.879004909704015,
+    "foto": "/assets/fotos/default.jpg"
+  },
+  {
+    "hostname": "9_BLOG",
+    "nome": "9 BLOG",
+    "ip": "10.147.0.64",
+    "hostgroup": "santiago",
+    "latitude": -29.174452967438253,
+    "longitude": -54.87478296858705,
+    "foto": "/assets/fotos/default.jpg"
+  },
+  {
+    "hostname": "1_BDA",
+    "nome": "1 BDA SA",
+    "ip": "10.147.0.81",
+    "hostgroup": "santiago",
+    "latitude": -29.19037977764642,
+    "longitude": -54.87068954353865,
+    "foto": "/assets/fotos/default.jpg"
+  },
+  {
+    "hostname": "HGUST",
+    "nome": "HGU Santiago",
+    "ip": "10.147.0.107",
+    "hostgroup": "santiago",
+    "latitude": -29.197245874857085,
+    "longitude": -54.86989539373931,
+    "foto": "/assets/fotos/default.jpg"
+  },
+  {
+    "hostname": "19_GAC",
+    "nome": "19 GAC",
+    "ip": "10.147.0.14",
+    "hostgroup": "santiago",
+    "latitude": -29.184422275900978,
+    "longitude": -54.8605022261883,
+    "foto": "/assets/fotos/default.jpg"
+  },
+
+  {
+    "hostname": "1_CIA_ENG_CMB_SB",
+    "nome": "1 CIA ENG CMB São Borja",
+    "ip": "10.147.0.16",
+    "hostgroup": "sao_borja",
+    "latitude": -28.64402811744759,
+    "longitude": -56.01542080878338,
+    "foto": "/assets/fotos/default.jpg"
+  },
+  {
+    "hostname": "2_RCMEC_SB",
+    "nome": "2 RCMEC São Borja",
+    "ip": "10.147.0.33",
+    "hostgroup": "sao_borja",
+    "latitude": -28.648920892490086,
+    "longitude": -56.010393377544865,
+    "foto": "/assets/fotos/default.jpg"
+  },
+
+  {
+    "hostname": "13_CIA_COM",
+    "nome": "13 CIA COM São Gabriel",
+    "ip": "10.147.0.9",
+    "hostgroup": "sao_gabriel",
+    "latitude": -30.341235492529698,
+    "longitude": -54.31261276232149,
+    "foto": "/assets/fotos/default.jpg"
+  },
+  {
+    "hostname": "6_BE_CMB",
+    "nome": "6 BE CMB",
+    "ip": "10.147.0.53",
+    "hostgroup": "sao_gabriel",
+    "latitude": -30.332899016530916,
+    "longitude": -54.31535091944671,
+    "foto": "/assets/fotos/default.jpg"
+  },
+  {
+    "hostname": "9_RCB",
+    "nome": "9 RCB",
+    "ip": "10.147.0.66",
+    "hostgroup": "sao_gabriel",
+    "latitude": -30.332585594328897,
+    "longitude": -54.32684847472212,
+    "foto": "/assets/fotos/default.jpg"
+  },
+  {
+    "hostname": "P_MED_SGA",
+    "nome": "P MED São Gabriel",
+    "ip": "10.147.0.119",
+    "hostgroup": "sao_gabriel",
+    "latitude": -30.341102049545462,
+    "longitude": -54.322316207802864,
+    "foto": "/assets/fotos/default.jpg"
+  },
+
+  {
+    "hostname": "22_GAC_AP",
+    "nome": "22 GAC AP",
+    "ip": "10.147.0.24",
+    "hostgroup": "uruguaiana",
+    "latitude": -29.781037658211588,
+    "longitude": -57.08789520227979,
+    "foto": "/assets/fotos/default.jpg"
+  },
+  {
+    "hostname": "2_BDA_CMEC_URU",
+    "nome": "2 BDA CMEC Uruguaiana",
+    "ip": "10.147.0.82",
+    "hostgroup": "uruguaiana",
+    "latitude": -29.77546961367976,
+    "longitude": -57.11085920896499,
+    "foto": "/assets/fotos/default.jpg"
+  },
+  {
+    "hostname": "8_RCMEC",
+    "nome": "8 RCMEC",
+    "ip": "10.147.0.63",
+    "hostgroup": "uruguaiana",
+    "latitude": -29.780109496374997,
+    "longitude": -57.087496164540504,
+    "foto": "/assets/fotos/default.jpg"
+  },
+  {
+    "hostname": "P_MED_URUGUAIANA",
+    "nome": "P MED Uruguaiana",
+    "ip": "10.147.0.120",
+    "hostgroup": "uruguaiana",
+    "latitude": -29.768874855673015,
+    "longitude": -57.08983235001027,
+    "foto": "/assets/fotos/default.jpg"
+  }
 ]
