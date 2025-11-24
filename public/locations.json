@@ -142,5 +142,22 @@
         "latitude": -29.677455509835436, 
         "longitude": -53.81171032908659,
         "foto": "/assets/fotos/DSSM.png"
+    },
+
+    {
+        "hostname": "4_RCC",
+        "nome": "4 RCC",
+        "ip": "10.xxx.x.xxx",
+        "latitude": -30.25924881396888, 
+        "longitude": -54.89899395568386,
+        "foto": "/assets/fotos/default.jpg"
+    },
+    {
+        "hostname": "CI_BSB",
+        "nome": "CI BSB",
+        "ip": "10.xxx.x.xxx",
+        "latitude": -30.15460019630614,
+        "longitude": -55.05270731684865,
+        "foto": "/assets/fotos/default.jpg"
     }
 ]
