@@ -1,4 +1,4 @@
-# NagDash
+# SIVIR
 
 Sistema de monitoramento em tempo real que verifica a conectividade de quartéis militares usando ping/host e exibe o status de cada unidade em um mapa intuitivo.
 
@@ -9,7 +9,7 @@ Ele testa cada unidade configurada, determina se o enlace está UP, DOWN ou cone
 
 O objetivo é fornecer uma visão rápida do estado da rede militar entre diversas organizações militares (OMs), permitindo detectar falhas de forma imediata.
 
-## 🛰️ O que o NagDash Faz
+## 🛰️ O que o Sivir Faz
 
 - Realiza testes constantes de ping/host para cada OM cadastrada.
 - Identifica automaticamente se a unidade está:
@@ -22,6 +22,7 @@ O objetivo é fornecer uma visão rápida do estado da rede militar entre divers
 
 ## 📦 Tecnologias Utilizadas
 
+- Servidor em Nagios Core
 - Node.js
 - JavaScript
 - HTML/CSS
@@ -34,7 +35,7 @@ O objetivo é fornecer uma visão rápida do estado da rede militar entre divers
 Clone o repositório:
 
 ```bash
-git clone https://github.com/freitasfzw/NagDash.git
-cd NagDash
+git clone https://github.com/freitasfzw/SIVIR.git
+cd SIVIR
 npm install
 npm run dev
