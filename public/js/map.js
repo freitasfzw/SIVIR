@@ -33,6 +33,7 @@ clusterGroup.on("clusterclick", function (a) {
 // Armazena markers
 const markers = new Map();
 
+const enlaceLayer = L.layerGroup().addTo(mapa);
 // Cria ícone circular da OM
 function createOmIcon(fotoUrl, status, size = 64) {
   const color =
@@ -111,9 +112,48 @@ async function fetchAndUpdate() {
   }
 }
 
+async function fetchEnlaces() {
+  try {
+    const res = await fetch("/api/enlaces", { cache: "no-store" });
+    if (!res.ok) return;
+
+    const enlaces = await res.json();
+    enlaceLayer.clearLayers();
+
+    enlaces.forEach(e => {
+      const coords = [
+        [e.a.latitude, e.a.longitude],
+        [e.b.latitude, e.b.longitude]
+      ];
+
+      let color;
+      if (e.status !== "OK") color = "#ff0000"; // qualquer problema: vermelho
+      else if (e.tipo === "RADIO") color = "#00ff00"; // verde
+      else if (e.tipo === "FIBRA") color = "#ffff00"; // amarelo
+      else if (e.tipo === "AVATO") color = "#ffa500"; // laranja
+      else color = "#ffffff"; // fallback
+
+      const line = L.polyline(coords, { color, weight: 5 }).addTo(enlaceLayer);
+
+      line.bindPopup(`
+        <b>${e.a.nome} ⇄ ${e.b.nome}</b><br>
+        Tipo: ${e.tipo}<br>
+        Status: ${e.status}<br>
+        IP remoto: ${e.ipDestino}
+      `);
+    });
+
+  } catch (err) {
+    console.error("Erro /api/enlaces:", err);
+  }
+}
+
 // Execução inicial + polling
 fetchAndUpdate();
 setInterval(fetchAndUpdate, 30000);
+
+fetchEnlaces();
+setInterval(fetchEnlaces, 30000);
 
 // Sidebar
 const sidebar = document.getElementById("sidebar");

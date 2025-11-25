@@ -255,7 +255,139 @@ app.get("/api/om-status", requireLogin, async (req, res) => {
   }
 });
 
-// ===========================
+app.get("/api/enlaces", requireLogin, async (req, res) => {
+  try {
+    const locations = await readLocations();
+    const locIndex = {};
+    for (const l of locations) locIndex[l.hostname] = l;
+
+    const enlaces = await readEnlacesCZA();
+
+    const withStatus = await Promise.all(
+      enlaces.map(async (e) => {
+        const detail = await getServiceStatus(
+          e.host_name,
+          e.service_description
+        );
+
+        let status = "UNKNOWN";
+        if (detail) {
+          const code = detail.last_hard_state ?? detail.status;
+          status = mapServiceStatus(code);
+        }
+
+        return { ...e, status };
+      })
+    );
+
+    const result = [];
+
+    for (const e of withStatus) {
+      const locA = locIndex[e.omA];
+      const locB = locIndex[e.omB];
+      if (!locA || !locB) continue;
+
+      result.push({
+        id: `${e.omA}-${e.tipo}-${e.omB}`,
+        tipo: e.tipo,
+        status: e.status,
+        ipDestino: e.ipDestino,
+        a: locA,
+        b: locB
+      });
+    }
+
+    res.json(result);
+
+  } catch (err) {
+    console.error("Erro /api/enlaces:", err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+//------------------------------------------------------
+// ENLACES DE CRUZ ALTA
+//------------------------------------------------------
+const ENLACES_CFG_CZA = path.join(__dirname, "cruz_alta_enlaces_checkcluster.cfg");
+
+// Nomes usados no Nagios → nomes do locations.json
+const ENLACE_ALIAS = {
+  CMDAD3: "CMD_AD3",
+  BIACMDAD3: "BIA_CMD_AD3",
+  PMEDCZA: "P_MED_CZA",
+  // 1CTA vai ficar sem, até você cadastrar no locations.json
+};
+
+async function readEnlacesCZA() {
+  const raw = await fs.readFile(ENLACES_CFG_CZA, "utf8");
+
+  // Divide cada "define service"
+  const blocks = raw.split("define service").slice(1);
+
+  const enlaces = [];
+
+  for (const block of blocks) {
+    const hostMatch = block.match(/host_name\s+([^\n]+)/);
+    const descMatch = block.match(/service_description\s+([^\n]+)/);
+    const cmdMatch  = block.match(/check_command\s+([^\n]+)/);
+
+    if (!hostMatch || !descMatch || !cmdMatch) continue;
+
+    const host_name = hostMatch[1].trim();
+    const desc      = descMatch[1].trim();
+    const cmd       = cmdMatch[1].trim();
+
+    // ex.: 29GAC FIBRA BIACMDAD3
+    const parts = desc.split(/\s+/);
+    if (parts.length < 3) continue;
+
+    const rawA    = parts[0];
+    const rawTipo = parts[1].toUpperCase();
+    const rawB    = parts[2];
+
+    const omA = ENLACE_ALIAS[rawA] || rawA;
+    const omB = ENLACE_ALIAS[rawB] || rawB;
+
+    // Último ! do comando é o IP
+    const ipDestino = cmd.split("!").pop().trim();
+
+    enlaces.push({
+      host_name,
+      service_description: desc,
+      omA,
+      omB,
+      tipo: rawTipo,
+      ipDestino
+    });
+  }
+
+  return enlaces;
+}
+
+async function getServiceStatus(hostname, desc) {
+  const url =
+    `http://${NAGIOS_HOST}/nagios/cgi-bin/statusjson.cgi` +
+    `?query=service&hostname=${encodeURIComponent(hostname)}` +
+    `&servicedescription=${encodeURIComponent(desc)}`;
+
+  const res = await fetch(url, { headers: nagiosAuth() });
+  if (!res.ok) return null;
+
+  const json = await res.json();
+  return json.data.service || null;
+}
+
+function mapServiceStatus(code) {
+  const map = {
+    0: "OK",
+    1: "WARNING",
+    2: "CRITICAL",
+    3: "UNKNOWN",
+  };
+  return map[code] ?? "UNKNOWN";
+}
+
+
 app.listen(PORT, () => {
   console.log(`SIVIR rodando em http://0.0.0.0:${PORT}`);
 });
