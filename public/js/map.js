@@ -1,4 +1,32 @@
-// Coordenada inicial
+// ========== CONFIGURAÇÃO DE CIDADES ==========
+let configCidades = null;
+let cidadeAtualIndex = 0;
+let intervaloCidades = null;
+let navegacaoAutomatica = true;
+
+// Carrega configuração das cidades
+async function carregarCidades() {
+  try {
+    const res = await fetch("/cidades.json", { cache: "no-store" });
+    configCidades = await res.json();
+    iniciarNavegacao();
+  } catch (err) {
+    console.error("Erro ao carregar cidades.json:", err);
+    // Fallback para Santa Maria
+    configCidades = {
+      cidades: [{
+        nome: "Santa Maria",
+        latitude: -29.699146741863114,
+        longitude: -53.82797568507067,
+        zoom: 13.5
+      }],
+      intervaloTroca: 30000,
+      duracaoTransicao: 2
+    };
+  }
+}
+
+// ========== INICIALIZAÇÃO DO MAPA ==========
 const inicial = [-29.684, -53.806];
 const mapa = L.map("map", {
   zoomControl: false,
@@ -27,13 +55,200 @@ mapa.addLayer(clusterGroup);
 clusterGroup.on("clusterclick", function (a) {
   a.layer.spiderfy();
   a.originalEvent.preventDefault();
-
 });
 
 // Armazena markers
 const markers = new Map();
-
 const enlaceLayer = L.layerGroup().addTo(mapa);
+
+// ========== NAVEGAÇÃO ENTRE CIDADES ==========
+function irParaCidade(index, comTransicao = true) {
+  if (!configCidades || !configCidades.cidades.length) return;
+  
+  cidadeAtualIndex = index % configCidades.cidades.length;
+  const cidade = configCidades.cidades[cidadeAtualIndex];
+  
+  // Atualiza o indicador visual
+  atualizarIndicadorCidade(cidade.nome);
+  
+  // Move o mapa
+  if (comTransicao) {
+    mapa.flyTo(
+      [cidade.latitude, cidade.longitude],
+      cidade.zoom,
+      { duration: configCidades.duracaoTransicao || 2 }
+    );
+  } else {
+    mapa.setView([cidade.latitude, cidade.longitude], cidade.zoom);
+  }
+}
+
+function proximaCidade() {
+  if (!navegacaoAutomatica) return;
+  irParaCidade(cidadeAtualIndex + 1);
+}
+
+function cidadeAnterior() {
+  navegacaoAutomatica = false;
+  pararNavegacaoAutomatica();
+  irParaCidade(cidadeAtualIndex - 1);
+}
+
+function proximaCidadeManual() {
+  navegacaoAutomatica = false;
+  pararNavegacaoAutomatica();
+  irParaCidade(cidadeAtualIndex + 1);
+}
+
+function iniciarNavegacao() {
+  // Vai para a primeira cidade
+  irParaCidade(0, false);
+  
+  // Configura intervalo de troca automática
+  if (intervaloCidades) clearInterval(intervaloCidades);
+  intervaloCidades = setInterval(proximaCidade, configCidades.intervaloTroca || 30000);
+}
+
+function pararNavegacaoAutomatica() {
+  if (intervaloCidades) {
+    clearInterval(intervaloCidades);
+    intervaloCidades = null;
+  }
+}
+
+function reativarNavegacaoAutomatica() {
+  navegacaoAutomatica = true;
+  if (intervaloCidades) clearInterval(intervaloCidades);
+  intervaloCidades = setInterval(proximaCidade, configCidades.intervaloTroca || 30000);
+}
+
+// ========== INTERFACE DE NAVEGAÇÃO ==========
+function criarInterfaceNavegacao() {
+  const navHTML = `
+    <div id="cidadeNavegacao" style="
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1000;
+      background: rgba(0, 0, 0, 0.85);
+      padding: 12px 24px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    ">
+      <button id="btnCidadeAnterior" style="
+        background: transparent;
+        border: 2px solid #fff;
+        color: #fff;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        cursor: pointer;
+        font-size: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s;
+      " title="Cidade anterior">
+        ◀
+      </button>
+      
+      <div id="nomeCidadeAtual" style="
+        color: #fff;
+        font-size: 18px;
+        font-weight: 600;
+        min-width: 200px;
+        text-align: center;
+        letter-spacing: 0.5px;
+      ">
+        Carregando...
+      </div>
+      
+      <button id="btnProximaCidade" style="
+        background: transparent;
+        border: 2px solid #fff;
+        color: #fff;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        cursor: pointer;
+        font-size: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s;
+      " title="Próxima cidade">
+        ▶
+      </button>
+      
+      <button id="btnToggleAuto" style="
+        background: #28a745;
+        border: none;
+        color: #fff;
+        padding: 8px 16px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 500;
+        transition: all 0.3s;
+      " title="Ativar/Desativar navegação automática">
+        AUTO
+      </button>
+    </div>
+  `;
+  
+  document.body.insertAdjacentHTML("afterbegin", navHTML);
+  
+  // Event listeners
+  document.getElementById("btnCidadeAnterior").addEventListener("click", cidadeAnterior);
+  document.getElementById("btnProximaCidade").addEventListener("click", proximaCidadeManual);
+  document.getElementById("btnToggleAuto").addEventListener("click", toggleNavegacaoAutomatica);
+  
+  // Efeito hover nos botões
+  const botoes = document.querySelectorAll("#cidadeNavegacao button");
+  botoes.forEach(btn => {
+    btn.addEventListener("mouseenter", function() {
+      this.style.transform = "scale(1.1)";
+      if (this.id !== "btnToggleAuto") {
+        this.style.background = "rgba(255, 255, 255, 0.1)";
+      }
+    });
+    btn.addEventListener("mouseleave", function() {
+      this.style.transform = "scale(1)";
+      if (this.id !== "btnToggleAuto") {
+        this.style.background = "transparent";
+      }
+    });
+  });
+}
+
+function atualizarIndicadorCidade(nomeCidade) {
+  const elemento = document.getElementById("nomeCidadeAtual");
+  if (elemento) {
+    elemento.textContent = nomeCidade;
+  }
+}
+
+function toggleNavegacaoAutomatica() {
+  navegacaoAutomatica = !navegacaoAutomatica;
+  const btn = document.getElementById("btnToggleAuto");
+  
+  if (navegacaoAutomatica) {
+    reativarNavegacaoAutomatica();
+    btn.style.background = "#28a745";
+    btn.textContent = "AUTO";
+  } else {
+    pararNavegacaoAutomatica();
+    btn.style.background = "#6c757d";
+    btn.textContent = "MANUAL";
+  }
+}
+
+// ========== FUNÇÕES ORIGINAIS DO MAPA ==========
 // Cria ícone circular da OM
 function createOmIcon(fotoUrl, status, size = 64) {
   const color =
@@ -148,7 +363,14 @@ async function fetchEnlaces() {
   }
 }
 
-// Execução inicial + polling
+// ========== INICIALIZAÇÃO ==========
+// Cria interface de navegação
+criarInterfaceNavegacao();
+
+// Carrega cidades e inicia navegação
+carregarCidades();
+
+// Execução inicial + polling das APIs
 fetchAndUpdate();
 setInterval(fetchAndUpdate, 30000);
 

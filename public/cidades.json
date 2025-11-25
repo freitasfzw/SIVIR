@@ -1,0 +1,72 @@
+{
+  "cidades": [
+    {
+      "nome": "Santa Maria",
+      "latitude": -29.699146741863114,
+      "longitude": -53.82797568507067,
+      "zoom": 13.5
+    },
+    {
+      "nome": "Itaara",
+      "latitude": -29.566715553464853,
+      "longitude": -53.77351619185253,
+      "zoom": 13.5
+    },
+    {
+      "nome": "Rosário do Sul",
+      "latitude": -30.254872321384344,
+      "longitude": -54.922072412570515,
+      "zoom": 13.5
+    },
+    {
+      "nome": "Alegrete",
+      "latitude": -29.791608522172528,
+      "longitude": -55.78966938709986,
+      "zoom": 13.5
+    },
+    {
+      "nome": "Uruguaiana",
+      "latitude": -29.776990180165992,
+      "longitude": -57.07850958973763,
+      "zoom": 13.5
+    },
+    {
+      "nome": "São Gabriel",
+      "latitude": -30.33906076390718,
+      "longitude": -54.32936118732882,
+      "zoom": 13.5
+    },
+    {
+      "nome": "Cachoeira do Sul",
+      "latitude": -30.04288135632668,
+      "longitude": -52.89670652145043,
+      "zoom": 13.5
+    },
+    {
+      "nome": "Cruz Alta",
+      "latitude": -28.64617865039897,
+      "longitude": -53.59808261190147,
+      "zoom": 13.5
+    },
+    {
+      "nome": "Santiago",
+      "latitude": -29.190948596130955,
+      "longitude": -54.86688835372747,
+      "zoom": 13.5
+    },
+    {
+      "nome": "São Borja",
+      "latitude": -28.646173576328092,
+      "longitude": -56.00691004727518,
+      "zoom": 13.5
+    },
+    {
+      "nome": "Itaqui",
+      "latitude": -29.155326283718722,
+      "longitude": -56.54636675078466,
+      "zoom": 13.5
+    }
+  ],
+  "intervaloTroca": 5000,
+  "duracaoTransicao": 2
+}
