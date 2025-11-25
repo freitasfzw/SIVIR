@@ -168,7 +168,7 @@
     "hostgroup": "rosario_do_sul",
     "latitude": -30.25924881396888,
     "longitude": -54.89899395568386,
-    "foto": "/assets/fotos/default.jpg"
+    "foto": "/assets/fotos/4rcc.png"
   },
   {
     "hostname": "CIBSB",
@@ -177,7 +177,7 @@
     "hostgroup": "rosario_do_sul",
     "latitude": -30.15460019630614,
     "longitude": -55.05270731684865,
-    "foto": "/assets/fotos/default.jpg"
+    "foto": "/assets/fotos/CIBSB.png"
   },
   {
     "hostname": "13_CIA_DAM",
@@ -195,7 +195,7 @@
     "hostgroup": "alegrete",
     "latitude": -29.773963652546822,
     "longitude": -55.80476036358297,
-    "foto": "/assets/fotos/default.jpg"
+    "foto": "/assets/fotos/10BLOG.png"
   },
   {
     "hostname": "6_RCB",
@@ -204,7 +204,7 @@
     "hostgroup": "alegrete",
     "latitude": -29.77838864571427,
     "longitude": -55.80570108121015,
-    "foto": "/assets/fotos/default.jpg"
+    "foto": "/assets/fotos/6RCB.png"
   },
   {
     "hostname": "2_CIA_ENG_CMB",
@@ -213,7 +213,7 @@
     "hostgroup": "alegrete",
     "latitude": -29.7809235244142,
     "longitude": -55.784821221135786,
-    "foto": "/assets/fotos/default.jpg"
+    "foto": "/assets/fotos/2CIAE_CMB_MEC.png"
   },
   {
     "hostname": "12_CIA_COM_MEC",
@@ -222,7 +222,7 @@
     "hostgroup": "alegrete",
     "latitude": -29.803092446391386,
     "longitude": -55.799137833753434,
-    "foto": "/assets/fotos/default.jpg"
+    "foto": "/assets/fotos/12CIA_COM_MEC.png"
   },
   {
     "hostname": "12_BECMB",
@@ -231,7 +231,7 @@
     "hostgroup": "alegrete",
     "latitude": -29.779963410884385,
     "longitude": -55.78553978407106,
-    "foto": "/assets/fotos/default.jpg"
+    "foto": "/assets/fotos/12BE_CMB_BLD.png"
   },
   {
     "hostname": "HGU_ALEGRETE",
@@ -240,7 +240,7 @@
     "hostgroup": "alegrete",
     "latitude": -29.784178385374247,
     "longitude": -55.78732996898383,
-    "foto": "/assets/fotos/default.jpg"
+    "foto": "/assets/fotos/HGU_ALEGRETE.png"
   },
   {
     "hostname": "1_RCMEC",
@@ -249,7 +249,7 @@
     "hostgroup": "itaqui",
     "latitude": -29.153418434748527,
     "longitude": -56.550555811059965,
-    "foto": "/assets/fotos/default.jpg"
+    "foto": "/assets/fotos/1_RC_MEC.png"
   },
   {
     "hostname": "13_GAC",
@@ -258,7 +258,7 @@
     "hostgroup": "cachoeira_do_sul",
     "latitude": -30.051502599903397,
     "longitude": -52.897492396861985,
-    "foto": "/assets/fotos/default.jpg"
+    "foto": "/assets/fotos/13GAC.png"
   },
   {
     "hostname": "3_BEC",
@@ -267,7 +267,7 @@
     "hostgroup": "cachoeira_do_sul",
     "latitude": -30.052089573841048,
     "longitude": -52.89815261393125,
-    "foto": "/assets/fotos/default.jpg"
+    "foto": "/assets/fotos/3BEC.png"
   },
   {
     "hostname": "29GAC",
@@ -276,7 +276,7 @@
     "hostgroup": "cruz_alta",
     "latitude": -28.64144867018259,
     "longitude": -53.59464913355668,
-    "foto": "/assets/fotos/default.jpg"
+    "foto": "/assets/fotos/29GAC.png"
   },
   {
     "hostname": "CICA",
@@ -294,7 +294,7 @@
     "hostgroup": "cruz_alta",
     "latitude": -28.63439001772665,
     "longitude": -53.614970085111686,
-    "foto": "/assets/fotos/default.jpg"
+    "foto": "/assets/fotos/EASA2.Png"
   },
   {
     "hostname": "CMD_AD3",
@@ -303,7 +303,7 @@
     "hostgroup": "cruz_alta",
     "latitude": -28.645519724964736,
     "longitude": -53.61148034544129,
-    "foto": "/assets/fotos/default.jpg"
+    "foto": "/assets/fotos/AD3.png"
   },
   {
     "hostname": "BIA_CMD_AD3",
@@ -312,7 +312,7 @@
     "hostgroup": "cruz_alta",
     "latitude": -28.639390140309423,
     "longitude": -53.59414234761424,
-    "foto": "/assets/fotos/default.jpg"
+    "foto": "/assets/fotos/BIA_C_AD3.png"
   },
   {
     "hostname": "P_MED_CZA",
@@ -321,7 +321,7 @@
     "hostgroup": "cruz_alta",
     "latitude": -28.643479807744164,
     "longitude": -53.599834487786275,
-    "foto": "/assets/fotos/default.jpg"
+    "foto": "/assets/fotos/PMED.png"
   },
   {
     "hostname": "11_CIA_COM",
@@ -330,7 +330,7 @@
     "hostgroup": "santiago",
     "latitude": -29.19440097106517,
     "longitude": -54.879004909704015,
-    "foto": "/assets/fotos/default.jpg"
+    "foto": "/assets/fotos/11CIA_COM_MEC.png"
   },
   {
     "hostname": "9_BLOG",
@@ -339,7 +339,7 @@
     "hostgroup": "santiago",
     "latitude": -29.174452967438253,
     "longitude": -54.87478296858705,
-    "foto": "/assets/fotos/default.jpg"
+    "foto": "/assets/fotos/9BLOG.png"
   },
   {
     "hostname": "1_BDA",
@@ -348,7 +348,7 @@
     "hostgroup": "santiago",
     "latitude": -29.19037977764642,
     "longitude": -54.87068954353865,
-    "foto": "/assets/fotos/default.jpg"
+    "foto": "/assets/fotos/1_BDA.png"
   },
   {
     "hostname": "HGUST",
@@ -357,7 +357,7 @@
     "hostgroup": "santiago",
     "latitude": -29.197245874857085,
     "longitude": -54.86989539373931,
-    "foto": "/assets/fotos/default.jpg"
+    "foto": "/assets/fotos/HGU_SANTIAGO.png"
   },
   {
     "hostname": "19_GAC",
@@ -366,7 +366,7 @@
     "hostgroup": "santiago",
     "latitude": -29.184422275900978,
     "longitude": -54.8605022261883,
-    "foto": "/assets/fotos/default.jpg"
+    "foto": "/assets/fotos/19GAC.png"
   },
   {
     "hostname": "1_CIA_ENG_CMB_SB",
@@ -375,7 +375,7 @@
     "hostgroup": "sao_borja",
     "latitude": -28.64402811744759,
     "longitude": -56.01542080878338,
-    "foto": "/assets/fotos/default.jpg"
+    "foto": "/assets/fotos/1CIA_ENG_CMB.png"
   },
   {
     "hostname": "2_RCMEC_SB",
@@ -384,7 +384,7 @@
     "hostgroup": "sao_borja",
     "latitude": -28.648920892490086,
     "longitude": -56.010393377544865,
-    "foto": "/assets/fotos/default.jpg"
+    "foto": "/assets/fotos/2RCMEC.png"
   },
   {
     "hostname": "13_CIA_COM",
@@ -393,7 +393,7 @@
     "hostgroup": "sao_gabriel",
     "latitude": -30.341235492529698,
     "longitude": -54.31261276232149,
-    "foto": "/assets/fotos/default.jpg"
+    "foto": "/assets/fotos/13CIA_COM_MEC.png"
   },
   {
     "hostname": "6_BE_CMB",
@@ -402,7 +402,7 @@
     "hostgroup": "sao_gabriel",
     "latitude": -30.332899016530916,
     "longitude": -54.31535091944671,
-    "foto": "/assets/fotos/default.jpg"
+    "foto": "/assets/fotos/6BECMB.png"
   },
   {
     "hostname": "9_RCB",
@@ -411,7 +411,7 @@
     "hostgroup": "sao_gabriel",
     "latitude": -30.332585594328897,
     "longitude": -54.32684847472212,
-    "foto": "/assets/fotos/default.jpg"
+    "foto": "/assets/fotos/9RCB.png"
   },
   {
     "hostname": "P_MED_SGA",
@@ -420,7 +420,7 @@
     "hostgroup": "sao_gabriel",
     "latitude": -30.341102049545462,
     "longitude": -54.322316207802864,
-    "foto": "/assets/fotos/default.jpg"
+    "foto": "/assets/fotos/PMED.png"
   },
   {
     "hostname": "22_GAC_AP",
@@ -429,7 +429,7 @@
     "hostgroup": "uruguaiana",
     "latitude": -29.781037658211588,
     "longitude": -57.08789520227979,
-    "foto": "/assets/fotos/default.jpg"
+    "foto": "/assets/fotos/22GAC.png"
   },
   {
     "hostname": "2_BDA_CMEC_URU",
@@ -438,7 +438,7 @@
     "hostgroup": "uruguaiana",
     "latitude": -29.77546961367976,
     "longitude": -57.11085920896499,
-    "foto": "/assets/fotos/default.jpg"
+    "foto": "/assets/fotos/2BDA_C_MEC.png"
   },
   {
     "hostname": "8_RCMEC",
@@ -447,7 +447,7 @@
     "hostgroup": "uruguaiana",
     "latitude": -29.780109496374997,
     "longitude": -57.087496164540504,
-    "foto": "/assets/fotos/default.jpg"
+    "foto": "/assets/fotos/8RCMEC.png"
   },
   {
     "hostname": "P_MED_URUGUAIANA",
@@ -456,6 +456,6 @@
     "hostgroup": "uruguaiana",
     "latitude": -29.768874855673015,
     "longitude": -57.08983235001027,
-    "foto": "/assets/fotos/default.jpg"
+    "foto": "/assets/fotos/PMED.png"
   }
 ]

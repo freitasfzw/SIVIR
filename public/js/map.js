@@ -35,7 +35,7 @@ const mapa = L.map("map", {
 }).setView(inicial, 13.5);
 
 // Tile escuro
-L.tileLayer("https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png", {
+L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
   maxZoom: 20,
   attribution:
     'SIVIR Desenvolvido por <a href="https://github.com/freitasfzw" target="_blank">Zucchetto</a> e <a href="https://github.com/HnrqHolanda" target="_blank">Henrique Holanda</a>'
@@ -372,10 +372,10 @@ carregarCidades();
 
 // Execução inicial + polling das APIs
 fetchAndUpdate();
-setInterval(fetchAndUpdate, 30000);
+setInterval(fetchAndUpdate, 5000);
 
 fetchEnlaces();
-setInterval(fetchEnlaces, 30000);
+setInterval(fetchEnlaces, 5000);
 
 // Sidebar
 const sidebar = document.getElementById("sidebar");
