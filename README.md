@@ -37,5 +37,8 @@ Clone o repositório:
 ```bash
 git clone https://github.com/freitasfzw/SIVIR.git
 cd SIVIR
+sudo apt update
+sudo apt upgrade
 npm install
+npm install express-session
 npm run dev
