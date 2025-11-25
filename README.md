@@ -4,7 +4,7 @@ Sistema de monitoramento em tempo real que verifica a conectividade de quartéis
 
 ## 📌 Sobre o Sistema
 
-O NagDash foi desenvolvido para monitorar continuamente a conectividade entre quartéis e o roteador principal.  
+O SIVIR foi desenvolvido para monitorar continuamente a conectividade entre quartéis e o roteador principal.  
 Ele testa cada unidade configurada, determina se o enlace está UP, DOWN ou conectado diretamente ao roteador, e apresenta tudo visualmente em um mapa interativo.
 
 O objetivo é fornecer uma visão rápida do estado da rede militar entre diversas organizações militares (OMs), permitindo detectar falhas de forma imediata.
@@ -38,4 +38,5 @@ Clone o repositório:
 git clone https://github.com/freitasfzw/SIVIR.git
 cd SIVIR
 npm install
+npm install expression-session
 npm run dev
