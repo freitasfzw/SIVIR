@@ -42,9 +42,6 @@ const mapa = L.map("map", {
   zoomControl: false,
   maxZoom: 20,
   minZoom: 4,
-  zoomAnimation: false,
-  fadeAnimation: false,
-  markerZoomAnimation: false,
 }).setView(inicial, 13.5);
 
 // Tile escuro
@@ -318,7 +315,7 @@ function toggleNavegacaoAutomatica() {
 // Cria ícone circular da OM
 function createOmIcon(fotoUrl, status, size = 64) {
   const color =
-    status === "UP" ? "#28a745" : status === "DOWN" ? "#d64545" : "#8a8a8a";
+    status === "UP" ? "#28a745" : status === "DOWN" ? "#d64545" : "#8a8a8aff";
 
   const html = `
     <div class="om-icon" style="
