@@ -67,6 +67,6 @@
       "zoom": 13.5
     }
   ],
-  "intervaloTroca": 5000,
+  "intervaloTroca": 15000,
   "duracaoTransicao": 2
 }

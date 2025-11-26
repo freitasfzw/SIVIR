@@ -7,13 +7,14 @@
   <title>SIVIR</title>
   <link rel="shortcut icon" href="favicon2.png" type="image/x-icon">
 
-  <!-- ====== LEAFLET (sempre carregar primeiro) ====== -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <!-- ====== LEAFLET CSS ====== -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
+  <!-- MarkerCluster CSS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.Default.css" />
-  <!-- CSS do seu projeto -->
+
+  <!-- CSS do projeto -->
   <link rel="stylesheet" href="css/style.css" />
 </head>
 
@@ -22,96 +23,226 @@
   <noscript>
     <div
       style="position:fixed;top:0;left:0;right:0;background:#ffdddd;color:#700;padding:8px;text-align:center;z-index:9999;">
-      Este app requer JavaScript para funcionar corretamente. Habilite o JavaScript no navegador.
+      Este app requer JavaScript para funcionar corretamente.
     </div>
   </noscript>
 
-  <!-- Sidebar -->
+  <!-- ============================
+       SIDEBAR
+  ============================= -->
   <div id="sidebar" aria-hidden="true">
+
+    <!-- HEADER -->
     <div id="sidebar-header">
       <div style="display:flex; align-items:center; gap:10px;">
-        <img src="favicon2.png" alt="Logo SIVIR" style="width:32px; height:32px; border-radius:6px;">
-        <h1 style="margin:0;">SIVIR</h1>
+        <img src="favicon2.png" alt="Logo SIVIR" style="width:32px; height:28px; border-radius:6px;">
+        <h1>SIVIR</h1>
       </div>
-
       <span class="subtitle">Painel de Monitoramento</span>
       <button id="closeSidebar" type="button" aria-label="Fechar painel">×</button>
     </div>
 
-    <div class="menu-item" role="button" tabindex="0">
-      <i class="icon" data-icon="server"></i>
+    <!-- MENU -->
+    <div class="menu-item" id="menuAddOM">
+      <span class="icon">🖥️</span>
       <div>
         <div class="menu-title">Adicionar Quartel</div>
         <div class="menu-subtitle">Gerenciar hosts monitorados</div>
       </div>
     </div>
 
-    <div class="menu-item" role="button" tabindex="0">
-      <i class="icon" data-icon="network"></i>
+    <div class="menu-item" id="menuAddEnlace">
+      <span class="icon">🌐</span>
       <div>
         <div class="menu-title">Adicionar Enlaces</div>
-        <div class="menu-subtitle">Status dos serviços Nagios</div>
+        <div class="menu-subtitle">Cadastrar novos enlaces</div>
       </div>
     </div>
 
-    <div class="menu-item" role="button" tabindex="0">
-      <i class="icon" data-icon="activity"></i>
+    <div class="menu-item" id="menuMonitoramento">
+      <span class="icon">📊</span>
       <div>
         <div class="menu-title">Monitoramento</div>
-        <div class="menu-subtitle">Visão geral da rede</div>
+        <div class="menu-subtitle">Status da Rede • Tempo Real</div>
       </div>
     </div>
 
-    <div class="menu-item" role="button" tabindex="0">
-      <i class="icon" data-icon="map"></i>
+    <div class="menu-item" id="menuFiltros">
+      <span class="icon">🗺️</span>
       <div>
         <div class="menu-title">Filtros</div>
         <div class="menu-subtitle">Camadas e visualização</div>
       </div>
     </div>
 
-<div id="sidebar-footer">
+    <!-- ============================
+         CONTEÚDO DINÂMICO
+    ============================= -->
+<div id="sidebar-content">
 
-  <!-- Exportar Dados vira acesso ao painel -->
-  <button id="adminButton" class="footer-btn" type="button" onclick="window.location.href='/admin'">
-    <i data-icon="shield"></i> Painel de Administrador
-  </button>
+  <!-- TELA ADICIONAR OM -->
+  <div id="telaAddOM" class="content-section">
+    <h2>Adicionar Quartel</h2>
+    <p>Informe os dados para adicionar uma OM:</p>
 
-  <button id="logoutButton" class="footer-btn logout" type="button" onclick="window.location.href='/logout'">
-    <i data-icon="log-out"></i> Sair
-  </button>
+    <div class="form-group">
+      <label for="hostname">Hostname *</label>
+      <input type="text" id="hostname" placeholder="Ex: DA_DCT">
+    </div>
 
-</div>
+    <div class="form-group">
+      <label for="nome">Nome *</label>
+      <input type="text" id="nome" placeholder="Ex: DA-DCT">
+    </div>
+
+    <div class="form-group">
+      <label for="ip">Endereço IP *</label>
+      <input type="text" id="ip" placeholder="Ex: 10.26.22.33">
+    </div>
+
+    <div class="form-group">
+      <label for="hostgroup">Hostgroup *</label>
+      <select id="hostgroup">
+        <option value="santa_maria">Santa Maria</option>
+        <option value="uruguaiana">Uruguaiana</option>
+        <option value="bagé">Bagé</option>
+        <option value="cruz_alta">Cruz Alta</option>
+        <option value="santo_angelo">Santo Ângelo</option>
+        <option value="porto_alegre">Porto Alegre</option>
+        <option value="pelotas">Pelotas</option>
+        <option value="caxias_do_sul">Caxias do Sul</option>
+      </select>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="latitude">Latitude *</label>
+        <input type="text" id="latitude">
+      </div>
+
+      <div class="form-group">
+        <label for="longitude">Longitude *</label>
+        <input type="text" id="longitude">
+      </div>
+    </div>
+
+    <button id="btnMapPick" type="button">📍 Selecionar no mapa</button>
+    <p id="pickHint" style="display:none;font-size:12px;color:#8bb;margin-top:6px;">
+      Clique no mapa para escolher a posição...
+    </p>
+
+    <div class="form-group">
+      <label for="foto">Foto (opcional)</label>
+      <input type="text" id="foto" placeholder="/assets/fotos/DCT.png">
+    </div>
+
+    <button id="submitAddOM" class="footer-btn" style="background:var(--accent-2);color:#000;">
+      ➕ Adicionar OM
+    </button>
   </div>
 
+      <!-- ======================
+           TELA: ADICIONAR ENLACE
+      ======================= -->
+      <div id="telaAddEnlace" class="content-section">
 
+        <h2>Adicionar Enlace</h2>
+        <p>Cadastrar link entre duas OMs monitoradas</p>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Hostname A *</label>
+            <input type="text" id="enlaceHostA" placeholder="Ex: DA_DCT">
+          </div>
+
+          <div class="form-group">
+            <label>Hostname B *</label>
+            <input type="text" id="enlaceHostB" placeholder="Ex: 29GAC">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Tipo *</label>
+          <select id="enlaceTipo">
+            <option value="RADIO">Rádio</option>
+            <option value="FIBRA">Fibra</option>
+            <option value="AVATO">Avato</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>IP Remoto</label>
+          <input type="text" id="enlaceIP" placeholder="Ex: 10.26.90.1">
+        </div>
+
+        <br>
+        <button class="footer-btn" id="submitAddEnlace" style="background:var(--accent-2);color:#000;">
+          ➕ Adicionar Enlace
+        </button>
+
+      </div>
+
+      <!-- ======================
+           TELA: MONITORAMENTO
+      ======================= -->
+      <div id="telaMonitoramento" class="content-section">
+
+        <h2>Status em Tempo Real</h2>
+
+        <div id="monitorStats">
+          <p>OMs UP: <span id="statUp">--</span></p>
+          <p>OMs DOWN: <span id="statDown">--</span></p>
+          <p>Última atualização: <span id="statCheck">--</span></p>
+        </div>
+
+      </div>
+
+      <!-- ======================
+           TELA: FILTROS
+      ======================= -->
+      <div id="telaFiltros" class="content-section">
+
+        <h2>Filtros de Mapa</h2>
+
+        <label><input type="checkbox" id="filtroOMs" checked> Mostrar OMs</label>
+        <label><input type="checkbox" id="filtroEnlaces" checked> Mostrar Enlaces</label>
+        <label><input type="checkbox" id="filtroCluster" checked> Usar Clusters</label>
+
+      </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <div id="sidebar-footer">
+      <button class="footer-btn" onclick="window.location.href='/admin'">🛡️ Painel de Administrador</button>
+      <button class="footer-btn logout" onclick="window.location.href='/logout'">🚪 Sair</button>
+    </div>
+
+  </div>
 
   <!-- Botão para abrir sidebar -->
   <button id="toggleSidebar" type="button" aria-label="Abrir painel" title="Configurações">☰</button>
 
-  <div id="map" role="region" aria-label="Mapa Sivir"></div>
+  <!-- Loading -->
+  <div id="loadingOMs"
+    style="display:none;opacity:0;position:fixed;top:20px;right:20px;background:#0099ff;color:#fff;padding:8px 12px;border-radius:8px;z-index:4000;">
+    Carregando OMs...
+  </div>
 
-  <!-- ====== LEAFLET (precisa vir ANTES de qualquer plugin) ====== -->
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <!-- Mapa -->
+  <div id="map"></div>
+
+  <!-- ====== SCRIPTS ====== -->
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
 
-  <!-- Seu script do mapa (depois de todos os plugins Leaflet) -->
   <script src="js/map.js" defer></script>
+  <script src="js/sizebar.js" defer></script>
 
-  <!-- Lucide icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
-  <script>
-    lucide.createIcons();
-  </script>
-  <script>
-    const user = "{{username}}"; // backend injeta aqui
-    if (user !== "admin") {
-      document.querySelector('[data-admin]').style.display = 'none';
-    }
-  </script>
+  <script> if (window.lucide) lucide.createIcons(); </script>
+
 </body>
 
 </html>

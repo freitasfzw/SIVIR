@@ -1,117 +1,123 @@
+/* ======================
+   PALETA
+========================= */
 :root {
-    --bg: #000007;                 /* preto-azulado profundo (fundo da logo) */
-    --card: #090021;               /* roxo-azul escuro igual ao background da logo */
-    --muted: #B5E9FF;              /* azul claro suave (textos secundários) */
-    --text: #ffffff;               /* branco-azulado brilhante */
-    --accent: #00C8FF;             /* azul neon principal da borda */
-    --accent-2: #0099ff;           /* azul intenso de brilho */
+    --bg: #000007;
+    --card: #090021;
+    --muted: #B5E9FF;
+    --text: #ffffff;
+    --accent: #00C8FF;
+    --accent-2: #0099ff;
     --radius: 16px;
-    --shadow: 0 10px 40px rgba(0, 200, 255, .25); /* glow azul suave */
+    --shadow: 0 10px 40px rgba(0, 200, 255, .25);
 }
 
-* {
-    box-sizing: border-box;
+* { 
+    box-sizing: border-box; 
 }
+
 body {
     margin: 0;
-    overflow: hidden; /* remove qualquer scroll */
+    overflow: hidden;
     background: #000;
     font-family: Arial, sans-serif;
+    color: var(--text);
 }
 
+/* ======================
+   MAPA
+========================= */
 #map {
     width: 100vw;
     height: 100vh;
 }
 
-/* ------------------ Sidebar Estrutura ------------------ */
+/* ======================
+   SIDEBAR
+========================= */
 
 #sidebar {
     position: absolute;
     top: 0;
     left: 0;
-    width: 280px;
+    width: 320px;
     height: 100vh;
+
     background: #0f0f0f;
-    color: #fff;
+    color: var(--text);
+
     padding: 20px;
+    border-right: 1px solid #1e1e1e;
+
     transform: translateX(-100%);
-    transition: transform 0.3s ease;
+    transition: transform 0.32s ease-in-out;
+
     display: flex;
     flex-direction: column;
-    border-right: 1px solid #1e1e1e;
-    z-index: 2000 !important;
+
+    z-index: 2000;
 }
 
 #sidebar.open {
     transform: translateX(0);
 }
 
+/* ======================
+   SIDEBAR HEADER
+========================= */
+
 #sidebar-header {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
     position: relative;
 }
 
 #sidebar-header h1 {
     margin: 0;
     font-size: 26px;
-    font-weight: 700;
-
 }
 
 .subtitle {
+    color: #bbb;
     font-size: 13px;
-    color: #aaa;
-    
 }
 
 #closeSidebar {
     position: absolute;
     top: 0;
     right: 0;
-    background: transparent;
-    border: none;
-    color: #fff;
     font-size: 26px;
+    border: none;
+    background: transparent;
+    color: white;
     cursor: pointer;
-    font-weight: bold;
+    padding: 4px;
 }
 
-/* ------------------ Menu ------------------ */
-
-
+/* ======================
+   MENU
+========================= */
 
 .menu-item {
-    background: #131313;
-    border: 1px solid #1e1e1e;
+    background: #161616;
+    border: 1px solid #1f1f1f;
     border-radius: 10px;
-    padding: 12px;
+
+    padding: 12px 14px;
+
     display: flex;
     align-items: center;
     gap: 12px;
-    margin-bottom: 12px;
+
     cursor: pointer;
-    transition: background 0.2s;
+    margin-bottom: 12px;
+
+    transition: background .22s, border-color .22s;
 }
 
 .menu-item:hover {
-    background: #1b1b1b;
+    background: #1d1d1d;
+    border-color: #2c2c2c;
 }
-
-.menu-title {
-    font-size: 16px;
-    font-weight: 600;
-}
-
-.menu-subtitle {
-    font-size: 12px;
-    color: #aaa;
-}
-
-/* ícones */
 
 .icon {
     width: 22px;
@@ -119,74 +125,185 @@ body {
     opacity: 0.9;
 }
 
-/* ------------------ Rodapé ------------------ */
+/* ======================
+   CONTEÚDO DO SIDEBAR
+========================= */
+
+#sidebar-content {
+    flex: 1;
+
+    overflow-y: auto;
+    padding-right: 6px;
+    padding-top: 5px;
+
+    scrollbar-width: thin;
+    scrollbar-color: #333 #111;
+}
+
+#sidebar-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+#sidebar-content::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 6px;
+}
+
+/* Telas internas */
+.content-section {
+    display: none;
+    animation: fadeIn .2s ease;
+}
+
+.content-section.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Títulos das telas */
+.content-section h2 {
+    margin-top: 0;
+    margin-bottom: 12px;
+}
+
+/* ======================
+   FORMULÁRIOS NO SIDEBAR
+========================= */
+
+.form-group {
+    margin-bottom: 14px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 14px;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 10px;
+
+    background: #121212;
+    border: 1px solid #2a2a2a;
+    border-radius: 8px;
+
+    font-size: 14px;
+    color: var(--text);
+
+    transition: border-color .2s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: var(--accent-2);
+}
+
+.form-row {
+    display: flex;
+    gap: 12px;
+}
+
+.error-message {
+    font-size: 12px;
+    margin-top: 3px;
+    color: #ff4e4e;
+}
+
+/* Botões internos */
+#sidebar button {
+    cursor: pointer;
+}
+
+/* ======================
+   FOOTER
+========================= */
 
 #sidebar-footer {
-    margin-top: auto;
+    margin-top: 15px;
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
 .footer-btn {
+    padding: 12px;
+    border-radius: 10px;
+
     background: #1a1a1a;
     border: 1px solid #2a2a2a;
-    border-radius: 10px;
-    padding: 12px;
-    font-size: 15px;
-    color: #fff;
+
+    color: white;
     cursor: pointer;
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-    align-items: center;
-    transition: background 0.2s;
+
+    transition: background .22s;
 }
 
 .footer-btn:hover {
-    background: #222;
+    background: #262626;
 }
 
 .logout {
-    background: #ff0000;
+    background: #b00000;
     border-color: #3a0000;
 }
 
 .logout:hover {
-    background: #400000;
+    background: #720000;
 }
 
-/* ------------------ Toggle Button ------------------ */
+/* ======================
+   BOTÃO DO SIDEBAR
+========================= */
 
 #toggleSidebar {
-    position: absolute;
+    position: fixed;
     top: 15px;
     left: 15px;
-    z-index: 1999 !important;
+
     background: #1f1f1f;
-    color: #fff;
-    border: none;
+    color: white;
+
     padding: 10px 14px;
     font-size: 20px;
-    cursor: pointer;
-    border-radius: 6px;
-    transition: background 0.2s;
 
+    border-radius: 6px;
+    border: none;
+
+    cursor: pointer;
+    transition: background .22s;
+    z-index: 1999;
 }
 
 #toggleSidebar:hover {
     background: #2c2c2c;
 }
 
-/* marker photo */
-.om-div-icon { background: transparent; border: none; }
-.om-icon img { display:block; }
+/* ======================
+   MARKERS (OMs)
+========================= */
 
-/* se quiser uma animação para DOWN */
-@keyframes pulse {
-  0% { box-shadow: 0 0 0 0 rgba(214,69,69,0.4); }
-  70% { box-shadow: 0 0 0 12px rgba(214,69,69,0); }
-  100% { box-shadow: 0 0 0 0 rgba(214,69,69,0); }
+.om-div-icon {
+    background: transparent;
 }
-.om-icon.down { animation: pulse 1.4s infinite; }
 
+.om-icon img {
+    display: block;
+}
+
+/* Animação DOWN */
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(214,69,69,0.45); }
+    70% { box-shadow: 0 0 0 12px rgba(214,69,69,0); }
+    100% { box-shadow: 0 0 0 0 rgba(214,69,69,0); }
+}
+
+.om-icon.down {
+    animation: pulse 1.4s infinite;
+}
