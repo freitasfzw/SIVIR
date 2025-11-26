@@ -263,7 +263,11 @@ app.get("/api/enlaces", requireLogin, async (req, res) => {
     const locIndex = {};
     for (const l of locations) locIndex[l.hostname] = l;
 
-    const enlaces = await readEnlacesCZA();
+    const enlaces = [];
+
+    for (const city of Object.keys(ENLACES_CFG)) {
+      enlaces.push(...await readEnlaces(city));
+    }
 
     const withStatus = await Promise.all(
       enlaces.map(async (e) => {
@@ -308,9 +312,18 @@ app.get("/api/enlaces", requireLogin, async (req, res) => {
 });
 
 //------------------------------------------------------
-// ENLACES DE CRUZ ALTA
+// ENLACES DAS OM'S
 //------------------------------------------------------
-const ENLACES_CFG_CZA = path.join(__dirname, "cruz_alta_enlaces_checkcluster.cfg");
+const ENLACES_CFG = {
+  cruz_alta: path.join(__dirname, "cruz_alta_enlaces_checkcluster.cfg"),
+  sao_gabriel: path.join(__dirname, "sao_gabriel_enlaces_checkcluster.cfg"),
+  cachoeira_do_sul: path.join(__dirname, "cachoeira_do_sul_enlaces_checkcluster.cfg"),
+  alegrete: path.join(__dirname, "alegrete_enlaces_checkcluster.cfg"),
+  rosario_do_sul: path.join(__dirname, "rosario_do_sul_enlaces_checkcluster.cfg"),
+  uruguaiana: path.join(__dirname, "uruguaiana_enlaces_checkcluster.cfg"),
+  sao_borja: path.join(__dirname, "sao_borja_enlaces_checkcluster.cfg"),
+  santa_maria: path.join(__dirname, "santa_maria_enlaces_checkcluster.cfg"),
+};
 
 // Nomes usados no Nagios → nomes do locations.json
 const ENLACE_ALIAS = {
@@ -320,37 +333,36 @@ const ENLACE_ALIAS = {
   // 1CTA vai ficar sem, até você cadastrar no locations.json
 };
 
-async function readEnlacesCZA() {
-  const raw = await fs.readFile(ENLACES_CFG_CZA, "utf8");
+async function readEnlaces(city) {
+  const cfgPath = ENLACES_CFG[city];
+  if (!cfgPath) return [];
 
-  // Divide cada "define service"
+  const raw = await fs.readFile(cfgPath, "utf8");
+
   const blocks = raw.split("define service").slice(1);
-
   const enlaces = [];
 
   for (const block of blocks) {
     const hostMatch = block.match(/host_name\s+([^\n]+)/);
     const descMatch = block.match(/service_description\s+([^\n]+)/);
-    const cmdMatch  = block.match(/check_command\s+([^\n]+)/);
+    const cmdMatch = block.match(/check_command\s+([^\n]+)/);
 
     if (!hostMatch || !descMatch || !cmdMatch) continue;
 
     const host_name = hostMatch[1].trim();
-    const desc      = descMatch[1].trim();
-    const cmd       = cmdMatch[1].trim();
+    const desc = descMatch[1].trim();
+    const cmd = cmdMatch[1].trim();
 
-    // ex.: 29GAC FIBRA BIACMDAD3
     const parts = desc.split(/\s+/);
     if (parts.length < 3) continue;
 
-    const rawA    = parts[0];
+    const rawA = parts[0];
     const rawTipo = parts[1].toUpperCase();
-    const rawB    = parts[2];
+    const rawB = parts[2];
 
     const omA = ENLACE_ALIAS[rawA] || rawA;
     const omB = ENLACE_ALIAS[rawB] || rawB;
 
-    // Último ! do comando é o IP
     const ipDestino = cmd.split("!").pop().trim();
 
     enlaces.push({
