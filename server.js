@@ -157,7 +157,7 @@ async function readLocations() {
   return JSON.parse(raw);
 }
 
-const NAGIOS_HOST = "10.26.1.161";
+const NAGIOS_HOST = "10.1.1.32";
 const NAGIOS_USER = "nagiosadmin";
 const NAGIOS_PASS = "123456";
 
