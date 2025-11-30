@@ -226,7 +226,7 @@
   },
   {
     "hostname": "12_BECMB",
-    "nome": "12 BECMB",
+    "nome": "12 BEC MB",
     "ip": "10.147.0.7",
     "hostgroup": "alegrete",
     "latitude": -29.779963410884385,
@@ -343,7 +343,7 @@
   },
   {
     "hostname": "1_BDA",
-    "nome": "1 BDA SA",
+    "nome": "1 BDA",
     "ip": "10.147.0.81",
     "hostgroup": "santiago",
     "latitude": -29.19037977764642,
@@ -369,8 +369,8 @@
     "foto": "/assets/fotos/19GAC.png"
   },
   {
-    "hostname": "1_CIA_ENG_CMB_SB",
-    "nome": "1 CIA ENG CMB São Borja",
+    "hostname": "1_CIA_ENG_CMB",
+    "nome": "1 CIA ENG CMB",
     "ip": "10.147.0.16",
     "hostgroup": "sao_borja",
     "latitude": -28.64402811744759,
@@ -378,8 +378,8 @@
     "foto": "/assets/fotos/1CIA_ENG_CMB.png"
   },
   {
-    "hostname": "2_RCMEC_SB",
-    "nome": "2 RCMEC São Borja",
+    "hostname": "2_RCMEC",
+    "nome": "2 RCMEC",
     "ip": "10.147.0.33",
     "hostgroup": "sao_borja",
     "latitude": -28.648920892490086,
@@ -388,7 +388,7 @@
   },
   {
     "hostname": "13_CIA_COM",
-    "nome": "13 CIA COM São Gabriel",
+    "nome": "13 CIA COM",
     "ip": "10.147.0.9",
     "hostgroup": "sao_gabriel",
     "latitude": -30.341235492529698,
@@ -432,8 +432,8 @@
     "foto": "/assets/fotos/22GAC.png"
   },
   {
-    "hostname": "2_BDA_CMEC_URU",
-    "nome": "2 BDA CMEC Uruguaiana",
+    "hostname": "2_BDA_CMEC",
+    "nome": "2 BDA CMEC",
     "ip": "10.147.0.82",
     "hostgroup": "uruguaiana",
     "latitude": -29.77546961367976,
@@ -450,7 +450,7 @@
     "foto": "/assets/fotos/8RCMEC.png"
   },
   {
-    "hostname": "P_MED_URUGUAIANA",
+    "hostname": "P_MED_URU",
     "nome": "P MED Uruguaiana",
     "ip": "10.147.0.120",
     "hostgroup": "uruguaiana",

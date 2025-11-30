@@ -78,68 +78,68 @@
     <!-- ============================
          CONTEÚDO DINÂMICO
     ============================= -->
-<div id="sidebar-content">
+    <div id="sidebar-content">
 
-  <!-- TELA ADICIONAR OM -->
-  <div id="telaAddOM" class="content-section">
-    <h2>Adicionar Quartel</h2>
-    <p>Informe os dados para adicionar uma OM:</p>
+      <!-- TELA ADICIONAR OM -->
+      <div id="telaAddOM" class="content-section">
+        <h2>Adicionar Quartel</h2>
+        <p>Informe os dados para adicionar uma OM:</p>
 
-    <div class="form-group">
-      <label for="hostname">Hostname *</label>
-      <input type="text" id="hostname" placeholder="Ex: DA_DCT">
-    </div>
+        <div class="form-group">
+          <label for="hostname">Hostname *</label>
+          <input type="text" id="hostname" placeholder="Ex: DA_DCT">
+        </div>
 
-    <div class="form-group">
-      <label for="nome">Nome *</label>
-      <input type="text" id="nome" placeholder="Ex: DA-DCT">
-    </div>
+        <div class="form-group">
+          <label for="nome">Nome *</label>
+          <input type="text" id="nome" placeholder="Ex: DA-DCT">
+        </div>
 
-    <div class="form-group">
-      <label for="ip">Endereço IP *</label>
-      <input type="text" id="ip" placeholder="Ex: 10.26.22.33">
-    </div>
+        <div class="form-group">
+          <label for="ip">Endereço IP *</label>
+          <input type="text" id="ip" placeholder="Ex: 10.26.22.33">
+        </div>
 
-    <div class="form-group">
-      <label for="hostgroup">Hostgroup *</label>
-      <select id="hostgroup">
-        <option value="santa_maria">Santa Maria</option>
-        <option value="uruguaiana">Uruguaiana</option>
-        <option value="bagé">Bagé</option>
-        <option value="cruz_alta">Cruz Alta</option>
-        <option value="santo_angelo">Santo Ângelo</option>
-        <option value="porto_alegre">Porto Alegre</option>
-        <option value="pelotas">Pelotas</option>
-        <option value="caxias_do_sul">Caxias do Sul</option>
-      </select>
-    </div>
+        <div class="form-group">
+          <label for="hostgroup">Hostgroup *</label>
+          <select id="hostgroup">
+            <option value="santa_maria">Santa Maria</option>
+            <option value="uruguaiana">Uruguaiana</option>
+            <option value="bagé">Bagé</option>
+            <option value="cruz_alta">Cruz Alta</option>
+            <option value="santo_angelo">Santo Ângelo</option>
+            <option value="porto_alegre">Porto Alegre</option>
+            <option value="pelotas">Pelotas</option>
+            <option value="caxias_do_sul">Caxias do Sul</option>
+          </select>
+        </div>
 
-    <div class="form-row">
-      <div class="form-group">
-        <label for="latitude">Latitude *</label>
-        <input type="text" id="latitude">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="latitude">Latitude *</label>
+            <input type="text" id="latitude">
+          </div>
+
+          <div class="form-group">
+            <label for="longitude">Longitude *</label>
+            <input type="text" id="longitude">
+          </div>
+        </div>
+
+        <button id="btnMapPick" type="button">📍 Selecionar no mapa</button>
+        <p id="pickHint" style="display:none;font-size:12px;color:#8bb;margin-top:6px;">
+          Clique no mapa para escolher a posição...
+        </p>
+
+        <div class="form-group">
+          <label for="foto">Foto (opcional)</label>
+          <input type="text" id="foto" placeholder="/assets/fotos/DCT.png">
+        </div>
+
+        <button id="submitAddOM" class="footer-btn" style="background:var(--accent-2);color:#000;">
+          ➕ Adicionar OM
+        </button>
       </div>
-
-      <div class="form-group">
-        <label for="longitude">Longitude *</label>
-        <input type="text" id="longitude">
-      </div>
-    </div>
-
-    <button id="btnMapPick" type="button">📍 Selecionar no mapa</button>
-    <p id="pickHint" style="display:none;font-size:12px;color:#8bb;margin-top:6px;">
-      Clique no mapa para escolher a posição...
-    </p>
-
-    <div class="form-group">
-      <label for="foto">Foto (opcional)</label>
-      <input type="text" id="foto" placeholder="/assets/fotos/DCT.png">
-    </div>
-
-    <button id="submitAddOM" class="footer-btn" style="background:var(--accent-2);color:#000;">
-      ➕ Adicionar OM
-    </button>
-  </div>
 
       <!-- ======================
            TELA: ADICIONAR ENLACE
@@ -223,14 +223,15 @@
   <!-- Botão para abrir sidebar -->
   <button id="toggleSidebar" type="button" aria-label="Abrir painel" title="Configurações">☰</button>
 
-  <!-- Loading -->
-  <div id="loadingOMs"
-    style="display:none;opacity:0;position:fixed;top:20px;right:20px;background:#0099ff;color:#fff;padding:8px 12px;border-radius:8px;z-index:4000;">
-    Carregando OMs...
-  </div>
-
   <!-- Mapa -->
   <div id="map"></div>
+
+  <div id="painel-om-down">
+    <h3>OMs em Alerta</h3>
+    <div id="lista-om-down"></div>
+  </div>
+
+  <div id="avisoOMGreen">Conexão restabelecida</div>
 
   <!-- ====== SCRIPTS ====== -->
 
@@ -243,6 +244,7 @@
   <script src="https://unpkg.com/lucide@latest"></script>
   <script> if (window.lucide) lucide.createIcons(); </script>
 
+  <audio id="alertSound" src="sounds/alert.mp3" preload="auto"></audio>
 </body>
 
 </html>
