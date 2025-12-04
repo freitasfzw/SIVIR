@@ -6,7 +6,7 @@
       "longitude": -53.826172,
       "zoom": 15
     },
-        {
+    {
       "nome": "Santa Maria Part.2",
       "latitude": -29.722723,
       "longitude": -53.845400,
@@ -20,7 +20,7 @@
     },
     {
       "nome": "Rosário do Sul",
-      "latitude": -30.204799, 
+      "latitude": -30.204799,
       "longitude": -54.973142,
       "zoom": 12.5
     },
@@ -73,6 +73,6 @@
       "zoom": 13.5
     }
   ],
-  "intervaloTroca": 5000,
+  "intervaloTroca": 52000,
   "duracaoTransicao": 2
 }

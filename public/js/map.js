@@ -13,10 +13,56 @@ let dashboardImages = []; // armazena os markers criados
 let dashboardImagesVisible = false; // controle de visibilidade
 let modoManual = false;
 let omDownAnterior = 0;
+let omIndex = {};          // índice das OMs por hostname/nome
+let provedoresCarregados = false;
+let autoPause = false;
 
 const enlacesDashboardLayer = L.layerGroup();
 const CENTER_DASHBOARD = [-29.805917353708942, -54.910726738178944];
 const ZOOM_DASHBOARD = 8;
+
+const providerPosOverride = {
+  santa_maria: {
+    AVATO: [-29.694502, -53.833952],
+    MIDIANET: [-29.686151, -53.811121]
+  },
+  alegrete: {
+    AVATO: [-29.790377, -55.811706],
+    MIDIANET: [-29.794213, -55.783339]
+  },
+  cruz_alta: {
+    AVATO: [-28.642163, -53.635168],
+    MIDIANET: [-28.652746, -53.598390]
+  },
+  uruguaiana: {
+    AVATO: [-29.774491, -57.084081],
+    MIDIANET: [-29.774789, -57.096848]
+  },
+  santiago: {
+    AVATO: [-29.183864, -54.884176],
+    MIDIANET: [-29.193418, -54.857740]
+  },
+  rosario_do_sul: {
+    AVATO: [-30.160216, -54.920966],
+    STARLINK: [-30.155076, -55.011827]
+  },
+  itaara: {
+    AVATO: [-29.563569, -53.746586]
+  },
+  sao_gabriel: {
+    AVATO: [-30.337565, -54.327307]
+  },
+  cachoeira_do_sul: {
+    AVATO: [-30.051363, -52.898537]
+  },
+  sao_borja: {
+    MIDIANET: [-28.644442, -56.010071],
+    STARLINK: [-28.738851532051104, -55.5870006590968]
+  },
+  itaqui: {
+    AVATO: [-29.153620, -56.581485]
+  }
+};
 
 // -----------------------------------------------------------------------------------------------
 
@@ -204,13 +250,12 @@ function criarBlocoCidade(nome, lista) {
     icone.style.width = "55px";
     icone.style.height = "55px";
     icone.style.borderRadius = "50%";
-    icone.style.border = `3px solid ${
-      item.status === "UP"
-        ? "#28a745"
-        : item.status === "DOWN"
+    icone.style.border = `3px solid ${item.status === "UP"
+      ? "#28a745"
+      : item.status === "DOWN"
         ? "#d64545"
         : "#8a8a8a"
-    }`;
+      }`;
     icone.style.overflow = "hidden";
     icone.style.cursor = "pointer";
     icone.style.transition = "transform .2s";
@@ -296,8 +341,8 @@ function renderizarDashboardFlutuante(data) {
   });
 
   // ORDEM FIXA que você pediu
-  const ordemTopo = ["rosario_do_sul", "itaqui", "itaara", "sao_borja"];
-  const ordemEsquerda = ["cachoeira_do_sul", "santiago", "sao_gabriel"];
+  const ordemTopo = ["rosario_do_sul", "itaqui", "itaara", "cachoeira_do_sul"];
+  const ordemEsquerda = ["sao_borja", "santiago", "sao_gabriel"];
   const ordemDireita = ["alegrete", "cruz_alta", "uruguaiana"];
   const ordemBottom = ["santa_maria"];
 
@@ -344,6 +389,7 @@ function mostrarDashboard() {
 
   // cria as linhas
   criarEnlacesDashboard();
+  providerLayer.clearLayers();
   enlacesDashboardLayer.addTo(mapa);
 }
 
@@ -367,6 +413,10 @@ function esconderDashboard() {
 
   // remove as linhas verdes
   mapa.removeLayer(enlacesDashboardLayer);
+  // Recoloca camada de provedores no mapa
+  if (!mapa.hasLayer(providerLayer)) {
+    mapa.addLayer(providerLayer);
+  }
 }
 
 // Carrega configuração das cidades
@@ -406,6 +456,27 @@ const mapa = L.map("map", {
   minZoom: 4,
 }).setView(inicial, 13.5);
 
+const providerLayer = L.layerGroup().addTo(mapa);
+
+const iconAVATO = L.icon({
+  iconUrl: "/assets/fotos/avato_midianet.png",
+  iconSize: [64, 64],
+  iconAnchor: [30, 30]
+});
+
+const iconMIDIANET = L.icon({
+  iconUrl: "/assets/fotos/avato_midianet.png",
+  iconSize: [64, 64],
+  iconAnchor: [30, 30]
+});
+
+const iconSTARLINK = L.icon({
+  iconUrl: "/assets/fotos/starlink.png",
+  iconSize: [64, 64],
+  iconAnchor: [30, 30]
+});
+
+
 const dashboardImageConfig = [
   {
     src: "/assets/fotos/DCT.png",
@@ -414,61 +485,61 @@ const dashboardImageConfig = [
     label: "Santa Maria",
   },
   {
-    src: "/assets/fotos/DCT.png",
+    src: "/assets/fotos/alegrete.png",
     size: [50, 50],
     coord: [-29.78787393141398, -55.798685878400875], // Alegrete
     label: "Alegrete",
   },
   {
-    src: "/assets/fotos/DCT.png",
+    src: "/assets/fotos/cruz_alta.png",
     size: [50, 50],
     coord: [-28.648905843373313, -53.61256380315587], // Cruz Alta
     label: "Cruz Alta",
   },
   {
-    src: "/assets/fotos/DCT.png",
+    src: "/assets/fotos/uruguaiana.png",
     size: [50, 50],
     coord: [-29.75274083692223, -57.08766895643805], // Uruguaiana
     label: "Uruguaiana",
   },
   {
-    src: "/assets/fotos/DCT.png",
+    src: "/assets/fotos/santiago.png",
     size: [50, 50],
     coord: [-29.194533839463762, -54.87370334283747], // Santiago
     label: "Santiago",
   },
   {
-    src: "/assets/fotos/DCT.png",
+    src: "/assets/fotos/cachoeira_do_sul.png",
     size: [50, 50],
     coord: [-30.0444524642555, -52.89570999537585], // Cachoeira do Sul
     label: "Cachoeira do Sul",
   },
   {
-    src: "/assets/fotos/DCT.png",
+    src: "/assets/fotos/sao_gabriel.png",
     size: [50, 50],
     coord: [-30.33566739256074, -54.32224724979259], // São Gabriel
     label: "Sao Gabriel",
   },
   {
-    src: "/assets/fotos/DCT.png",
+    src: "/assets/fotos/rosario_do_sul.png",
     size: [50, 50],
     coord: [-30.243724919305574, -54.927791749084136], // Rosario do Sul
     label: "Rosario do Sul",
   },
   {
-    src: "/assets/fotos/DCT.png",
+    src: "/assets/fotos/itaqui.png",
     size: [50, 50],
     coord: [-29.135437515430453, -56.55103175820158], // Itaqui
     label: "Itaqui",
   },
   {
-    src: "/assets/fotos/DCT.png",
+    src: "/assets/fotos/sao_borja.png",
     size: [50, 50],
     coord: [-28.65183133745255, -56.00497850301108], // São Borja
     label: "Sao Borja",
   },
   {
-    src: "/assets/fotos/DCT.png",
+    src: "/assets/fotos/itaara.png",
     size: [50, 50],
     coord: [-29.399946906791477, -53.52644941261851], // Itaara
     label: "Itaara",
@@ -506,7 +577,7 @@ function criarEnlacesDashboard() {
     const pontoCidade = [cidade.latitude, cidade.longitude];
 
     const linha = L.polyline([pontoSM, pontoCidade], {
-      color: "#00b7ffff",
+      color: "#000000ff",
       weight: 5,
       opacity: 0.65,
       dashArray: "10, 10", // <<< se quiser pontilhado
@@ -639,17 +710,24 @@ function iniciarNavegacaoAutomatica() {
   navegacaoAutomatica = true;
 
   esconderDashboard();
+  mapa.scrollWheelZoom.enable();
+  mapa.touchZoom.enable();
+  mapa.doubleClickZoom.enable();
+  mapa.boxZoom.enable();
+  mapa.keyboard.enable();
   irParaCidade(cidadeAtualIndex, false);
 
   const tempo = configCidades.intervaloTroca || 5000;
 
   intervaloCidades = setInterval(() => {
-    if (!navegacaoAutomatica) {
-      pararNavegacaoAutomatica();
-      return;
-    }
+    if (!navegacaoAutomatica || autoPause) return;
     irParaCidade(cidadeAtualIndex + 1);
   }, tempo);
+
+  if (!mapa.hasLayer(providerLayer)) {
+    mapa.addLayer(providerLayer);
+  }
+
 }
 
 function iniciarNavegacao() {
@@ -813,6 +891,26 @@ function criarInterfaceNavegacao() {
     );
   });
 
+  const btnPause = document.createElement("button");
+  btnPause.id = "btnPauseAuto";
+  btnPause.textContent = "II"; // símbolo pause
+  Object.assign(btnPause.style, {
+    background: "transparent",
+    border: "2px solid #fff",
+    color: "#fff",
+    width: "36px",
+    height: "36px",
+    borderRadius: "50%",
+    cursor: "pointer",
+    fontSize: "14px",
+    fontWeight: "600",
+  });
+
+  btnPause.onclick = () => togglePauseAuto();
+
+  document.getElementById("cidadeNavegacao").appendChild(btnPause);
+
+
   // listeners
   document.getElementById("btnCidadeAnterior").onclick = cidadeAnterior;
   document.getElementById("btnProximaCidade").onclick = proximaCidadeManual;
@@ -823,16 +921,19 @@ function atualizarIndicadorCidade(nomeCidade) {
   if (elemento) elemento.textContent = nomeCidade;
 }
 
-function toggleNavegacaoAutomatica() {
+async function toggleNavegacaoAutomatica() {
   navegacaoAutomatica = !navegacaoAutomatica;
 
   const miniBtn = document.getElementById("btnToggleAutoMini");
   const miniBack = document.getElementById("btnBackDashboard");
   const barra = document.getElementById("cidadeNavegacao");
 
+  // ============================
+  // ATIVANDO AUTO
+  // ============================
   if (navegacaoAutomatica) {
-    // === AUTO ATIVADO ===
-    modoManual = false; // <<< RESET FUNDAMENTAL
+    modoManual = false;
+    autoPause = false;
 
     miniBtn.style.display = "none";
     miniBack.style.display = "block";
@@ -841,30 +942,77 @@ function toggleNavegacaoAutomatica() {
     esconderDashboard();
     pararNavegacaoAutomatica();
 
-    // Começa na cidade atual
+    // posiciona na cidade atual
     irParaCidade(cidadeAtualIndex, false);
 
-    // Loop funcionando novamente
+    // 🔥 PROVEDORES — PRIMEIRA CARGA OU RECARREGA APÓS DASHBOARD
+    providerLayer.clearLayers();
+
+    await carregarProvedores();
+    provedoresCarregados = true;
+
+    if (!mapa.hasLayer(providerLayer)) {
+      mapa.addLayer(providerLayer);
+    }
+
+    // LOOP AUTOMÁTICO
     intervaloCidades = setInterval(() => {
-      // segurança: só gira se realmente estiver no modo auto
-      if (!navegacaoAutomatica) return;
+      if (!navegacaoAutomatica || autoPause) return;
       irParaCidade(cidadeAtualIndex + 1);
     }, configCidades.intervaloTroca || 5000);
-  } else {
-    // === AUTO DESATIVADO → DASHBOARD ===
-    modoManual = false; // permite dashboard aparecer
 
-    barra.style.display = "none";
-    miniBack.style.display = "none";
-    miniBtn.style.display = "block";
+    return;
+  }
 
+  // ============================
+  // DESATIVANDO AUTO -> VOLTA Painel
+  // ============================
+  modoManual = false;
+  autoPause = false;
+
+  pararNavegacaoAutomatica();
+
+  miniBack.style.display = "none";
+  miniBtn.style.display = "block";
+  barra.style.display = "none";
+
+  mostrarDashboard();
+  mapa.setView(CENTER_DASHBOARD, ZOOM_DASHBOARD);
+}
+
+function togglePauseAuto() {
+  if (!navegacaoAutomatica || omDownList.length > 0) return;
+
+  autoPause = !autoPause;
+
+  const btn = document.getElementById("btnPauseAuto");
+
+  if (autoPause) {
+    // muda ícone
+    btn.textContent = "▶";
     pararNavegacaoAutomatica();
-
-    mostrarDashboard();
-    mapa.setView(CENTER_DASHBOARD, ZOOM_DASHBOARD);
+  } else {
+    btn.textContent = "II";
+    iniciarNavegacaoAutomatica();
   }
 }
 
+function reiniciarRotacaoSeNaoPausado() {
+  if (!autoPause) {
+    pararNavegacaoAutomatica();
+    iniciarNavegacaoAutomatica();
+  }
+}
+
+function restaurarBotaoPause() {
+  const btn = document.getElementById("btnPauseAuto");
+  if (!btn) return;
+
+  btn.disabled = false;
+  btn.style.opacity = "1";
+  btn.style.cursor = "pointer";
+  btn.textContent = autoPause ? "▶" : "II";
+}
 // -----------------------------------------------------------------------------------------------
 
 // ========== FUNÇÕES ORIGINAIS DO MAPA ==========
@@ -1037,6 +1185,126 @@ function mostrarAvisoConexaoRestabelecida() {
 
 criarAvisoOM();
 
+
+function addProviderMarkers(data) {
+  for (const cidade of Object.keys(data)) {
+    const { pos, redes } = data[cidade];
+
+    if (redes.AVATO?.length)
+      createProviderMarker("AVATO", cidade, pos, redes.AVATO);
+
+    if (redes.MIDIANET?.length)
+      createProviderMarker("MIDIANET", cidade, pos, redes.MIDIANET);
+
+    if (redes.STARLINK?.length)
+      createProviderMarker("STARLINK", cidade, pos, redes.STARLINK);
+  }
+}
+
+function getProviderColor(status, tipo) {
+  // igual ao padrão do sistema
+  switch (status) {
+    case "CRITICAL": return "#ff0000";  // Vermelho
+    case "WARNING": return "#ffcc00";  // Amarelo
+    case "UNKNOWN": return "#666666";  // Cinza
+    case "OK":
+    default:
+      return tipo === "AVATO" ? "#ff9100" : "#a255ff";
+  }
+}
+
+function createProviderMarker(tipo, cidade, posDefault, enlaces) {
+  const pos = providerPosOverride[cidade]?.[tipo] || posDefault;
+
+  // Logos corretas para cada provedor
+  const providerLogo = {
+    AVATO: "/assets/fotos/avato_midianet.png",
+    MIDIANET: "/assets/fotos/avato_midianet.png",
+    STARLINK: "/assets/fotos/starlink.png"
+  };
+
+  // Nome exibido = próprio tipo
+  const label = tipo;
+
+  const icon = L.divIcon({
+    className: "provider-icon",
+    iconSize: [64, 80],
+    iconAnchor: [32, 32],
+    html: `
+      <div style="
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        justify-content:center;
+        pointer-events:none;
+        transform: translateY(-8px);
+      ">
+        <div style="
+          width:64px;
+          height:64px;
+          background-image:url('${providerLogo[tipo]}');
+          background-size:contain;
+          background-repeat:no-repeat;
+          background-position:center;
+        "></div>
+
+        <div style="
+          margin-top:2px;
+          padding:2px 8px;
+          background:rgba(0,0,0,0.7);
+          color:#fff;
+          font-size:12px;
+          font-weight:600;
+          border-radius:4px;
+          white-space:nowrap;
+          text-shadow:0 2px 4px rgba(0,0,0,0.6);
+        ">
+          ${label}
+        </div>
+      </div>
+    `
+  });
+
+  // Marker na posição do provedor
+  const marker = L.marker(pos, { icon, interactive: false }).addTo(providerLayer);
+
+  // Enlaces -> OM
+  enlaces.forEach(e => {
+    const dest = omIndex[e.om];
+    if (!dest) return;
+
+    const cor = getProviderColor(e.status, tipo);
+
+    L.polyline(
+      [pos, [dest.latitude, dest.longitude]],
+      {
+        color: cor,
+        weight: 8,
+        opacity: 0.9,
+        dashArray: e.status === "CRITICAL" ? "0" : "10 10"
+      }
+    ).addTo(providerLayer);
+  });
+}
+
+async function carregarProvedores() {
+
+  // 🚫 Dashboard ativo? → Não renderiza provedores
+  if (!navegacaoAutomatica && omDownList.length === 0) {
+    providerLayer.clearLayers();
+    return;
+  }
+
+  try {
+    const res = await fetch("/api/provedores", { cache: "no-store" });
+    const data = await res.json();
+    providerLayer.clearLayers();
+    addProviderMarkers(data);
+  } catch (e) {
+    console.warn("Erro ao carregar provedores:", e);
+  }
+}
+
 // Chama API
 async function fetchAndUpdate() {
   const aviso = document.getElementById("avisoOM");
@@ -1045,14 +1313,23 @@ async function fetchAndUpdate() {
     const res = await fetch("/api/om-status", { cache: "no-store" });
     const data = await res.json();
 
+    // monta índice de OMs para uso pelos provedores
+    omIndex = {};
+    data.forEach(item => {
+      if (item.hostname)
+        omIndex[item.hostname] = item;
+    });
+
+    carregarProvedores();
     renderizarDashboardFlutuante(data);
 
-    // Atualiza markers
-    if (modoManual || navegacaoAutomatica || omDownList.length > 0) {
-      data.forEach(upsertMarker);
-    } else {
+    if (!navegacaoAutomatica && omDownList.length === 0) {
+      // no dashboard → limpa tudo
       clusterGroup.clearLayers();
       enlaceLayer.clearLayers();
+    } else {
+      // em navegação OU modo crítico → mostra OM
+      data.forEach(upsertMarker);
     }
 
     // ==== DETECÇÃO DE OM FORA ====
@@ -1082,6 +1359,21 @@ async function fetchAndUpdate() {
     // =================================
 
     if (omDownList.length > 0) {
+
+      if (!provedoresCarregados) {
+        carregarProvedores();
+        provedoresCarregados = true;
+      }
+
+      autoPause = false;
+
+      const btnPause = document.getElementById("btnPauseAuto");
+      if (btnPause) {
+        btnPause.disabled = true;
+        btnPause.style.opacity = "0.3";
+        btnPause.style.cursor = "not-allowed";
+      }
+
       desativarBotoesPainel();
       esconderDashboard();
 
@@ -1143,7 +1435,8 @@ async function fetchAndUpdate() {
       data.forEach(upsertMarker);
 
       // reinicia rotação se estava parada
-      iniciarNavegacaoAutomatica();
+      if (!autoPause) iniciarNavegacaoAutomatica();
+
     }
 
     // ========= ATUALIZA PAINEL =========
@@ -1165,6 +1458,13 @@ async function fetchAndUpdate() {
   }
 }
 
+function offsetLatLng([lat, lng], offsetMeters) {
+  // desloca em metros na latitude (111.320m ≈ 1 grau)
+  const latOff = offsetMeters / 5000;
+  return [lat + latOff, lng];
+}
+
+
 async function fetchEnlaces() {
   try {
     const res = await fetch("/api/enlaces", { cache: "no-store" });
@@ -1172,37 +1472,84 @@ async function fetchEnlaces() {
 
     const enlaces = await res.json();
 
-    // -------- MODO DASHBOARD (AUTO OFF + nenhuma OM caída) --------
+    // Se está no modo painel, não mostra
     if (!navegacaoAutomatica && omDownList.length === 0) {
       enlaceLayer.clearLayers();
-      return; // Não exibe enlaces
+      return;
     }
 
-    // -------- MODO AUTOMÁTICO OU ALERTA --------
     enlaceLayer.clearLayers();
 
-    enlaces.forEach((e) => {
-      const coords = [
-        [e.a.latitude, e.a.longitude],
-        [e.b.latitude, e.b.longitude],
-      ];
-
-      let color;
-      if (e.status !== "OK") color = "#ff0000"; // problema: vermelho
-      else if (e.tipo === "RADIO") color = "#00a2ffff"; // radio
-      else if (e.tipo === "FIBRA") color = "#ffff00"; // fibra
-      else if (e.tipo === "AVATO") color = "#ff9100ff"; // avato
-      else color = "#8a8a8a"; // fallback
-
-      const line = L.polyline(coords, { color, weight: 5 }).addTo(enlaceLayer);
-
-      line.bindPopup(`
-        <b>${e.a.nome} ⇄ ${e.b.nome}</b><br>
-        Tipo: ${e.tipo}<br>
-        Status: ${e.status}<br>
-        IP remoto: ${e.ipDestino}
-      `);
+    // 🔥 agrupa enlaces por par OM-A <-> OM-B
+    const grupos = {};
+    enlaces.forEach(e => {
+      const key = [e.a.hostname, e.b.hostname].sort().join("_");
+      if (!grupos[key]) grupos[key] = [];
+      grupos[key].push(e);
     });
+
+    // desenha
+    Object.values(grupos).forEach((lista) => {
+      lista.forEach((e, idx) => {
+
+        const coords = [
+          [e.a.latitude, e.a.longitude],
+          [e.b.latitude, e.b.longitude],
+        ];
+
+        let options = {
+          color: "#00a2ff",
+          weight: 5,
+          dashArray: "15, 15",
+          opacity: 0.8,
+        };
+
+        // ===== ESTILO =====
+        switch (true) {
+          case e.status !== "OK":
+            options.color = "#ff0000";
+            options.dashArray = "0 0";
+            break;
+          case e.tipo === "RADIO":
+            options.color = "#00a2ff";
+            options.dashArray = "15 15";
+            break;
+          case e.tipo === "FIBRA":
+            options.color = "#ffff00";
+            options.dashArray = "0 0";
+            break;
+          case e.tipo === "AVATO":
+            options.color = "#ff9100";
+            options.dashArray = "0 0";
+            break;
+          case e.tipo == "MIDIANET":
+            options.color = "#ff9100";
+            options.dashArray = "0 0";
+            break;
+          case e.tipo == "STARLINK":
+            options.color = "#0004ffff";
+            options.dashArray = "0 0";
+            break;
+        }
+
+        // ===== OFFSET =====
+        const shift = idx * 6;
+        const coordsShift = [
+          offsetLatLng(coords[0], shift),
+          offsetLatLng(coords[1], shift),
+        ];
+
+        const line = L.polyline(coordsShift, options).addTo(enlaceLayer);
+
+        line.bindPopup(`
+          <b>${e.a.nome} ⇄ ${e.b.nome}</b><br>
+          Tipo: ${e.tipo}<br>
+          Status: ${e.status}<br>
+          IP remoto: ${e.ipDestino}
+        `);
+      });
+    });
+
   } catch (err) {
     console.error("Erro /api/enlaces:", err);
   }

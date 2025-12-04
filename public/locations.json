@@ -283,9 +283,9 @@
     "nome": "CICA",
     "ip": "10.147.0.117",
     "hostgroup": "cruz_alta",
-    "latitude": -28.668746753577565, 
+    "latitude": -28.668746753577565,
     "longitude": -53.58189460305652,
-    "foto": "/assets/fotos/default.jpg"
+    "foto": "/assets/fotos/cica.png"
   },
   {
     "hostname": "EASA",
@@ -385,6 +385,15 @@
     "latitude": -28.648920892490086,
     "longitude": -56.010393377544865,
     "foto": "/assets/fotos/2RCMEC.png"
+  },
+  {
+    "hostname": "CIR",
+    "nome": "COUDELARIA RINCAO",
+    "ip": "10.147.0.95",
+    "hostgroup": "sao_borja",
+    "latitude": -28.738766866661354,
+    "longitude": -55.585284045382416,
+    "foto": "/assets/fotos/CIR.png"
   },
   {
     "hostname": "13_CIA_COM",
