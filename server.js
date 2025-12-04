@@ -157,7 +157,7 @@ async function readLocations() {
   return JSON.parse(raw);
 }
 
-const NAGIOS_HOST = "10.1.1.32";
+const NAGIOS_HOST = "10.26.1.161";
 const NAGIOS_USER = "nagiosadmin";
 const NAGIOS_PASS = "123456";
 
@@ -337,6 +337,97 @@ app.get("/api/enlaces", requireLogin, async (req, res) => {
   }
 });
 
+app.get("/api/provedores", requireLogin, async (req, res) => {
+  try {
+    const locations = await readLocations();
+    const locIndex = Object.fromEntries(locations.map(l => [l.hostname, l]));
+
+    const raw = await fs.readFile(ENLACES_CFG.avato_midianet, "utf8");
+    const blocks = raw.split("define service").slice(1);
+
+    const provs = {};  // santa_maria: { AVATO:[], MIDIANET:[], STARLINK:[]}
+
+    // -----------------------------
+    // 1. Ler serviços do arquivo
+    // -----------------------------
+    for (const b of blocks) {
+      const descMatch = b.match(/service_description\s+(.+)/);
+      const cmdMatch  = b.match(/check_command\s+(.+)/);
+      const hostMatch = b.match(/host_name\s+(.+)/);
+
+      if (!descMatch || !cmdMatch || !hostMatch) continue;
+
+      const desc = descMatch[1].trim();
+      const host = hostMatch[1].trim();
+      const ip = cmdMatch[1].split("!").pop().trim();
+      const parts = desc.split(/\s+/);
+
+      const tipo = parts[1].toUpperCase();   // AVATO / MIDIANET / STARLINK
+      const om   = parts[2];                 // 6_BDA etc
+
+      const loc = locIndex[om];
+      if (!loc) continue;
+
+      const city = loc.hostgroup;
+
+      if (!provs[city]) provs[city] = { AVATO: [], MIDIANET: [], STARLINK: [] };
+
+      provs[city][tipo].push({
+        om,
+        ip,
+        host_name: host,
+        service_description: desc
+      });
+    }
+
+    // -----------------------------
+    // 2. Consultar status de cada serviço no NAGIOS
+    // -----------------------------
+    for (const cidade of Object.keys(provs)) {
+      for (const tipo of ["AVATO", "MIDIANET", "STARLINK"]) {
+        for (const link of provs[cidade][tipo]) {
+
+          const svc = await getServiceStatus(
+            link.host_name,
+            link.service_description
+          );
+
+          if (!svc) {
+            link.status = "UNKNOWN";
+            continue;
+          }
+
+          // Nagios usa “status” ou “last_hard_state”
+          const code = svc.last_hard_state ?? svc.status;
+          link.status = mapServiceStatus(code);
+        }
+      }
+    }
+
+    // -----------------------------
+    // 3. Construir payload final
+    // -----------------------------
+    const result = {};
+
+    for (const cidade of Object.keys(provs)) {
+      const arr = locations.filter(l => l.hostgroup === cidade);
+      const lat = arr.reduce((s,l)=>s+l.latitude,0) / arr.length;
+      const lng = arr.reduce((s,l)=>s+l.longitude,0) / arr.length;
+
+      result[cidade] = {
+        pos: [lat, lng],
+        redes: provs[cidade]
+      };
+    }
+
+    res.json(result);
+
+  } catch (err) {
+    console.error("Erro /api/provedores:", err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
 //------------------------------------------------------
 // ENLACES DAS OM'S
 //------------------------------------------------------
@@ -349,6 +440,7 @@ const ENLACES_CFG = {
   uruguaiana: path.join(__dirname, "uruguaiana_enlaces_checkcluster.cfg"),
   sao_borja: path.join(__dirname, "sao_borja_enlaces_checkcluster.cfg"),
   santa_maria: path.join(__dirname, "santa_maria_enlaces_checkcluster.cfg"),
+  avato_midianet: path.join(__dirname, "enlaces.provedor.cfg")
 };
 
 // Nomes usados no Nagios → nomes do locations.json
@@ -397,7 +489,8 @@ async function readEnlaces(city) {
       omA,
       omB,
       tipo: rawTipo,
-      ipDestino
+      ipDestino,
+      cidade: city
     });
   }
 
